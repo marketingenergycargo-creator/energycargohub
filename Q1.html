@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Q1 2026 · Energy Cargo & Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F2F7;--bg2:#FFFFFF;--sep:#C6C6C8;--fill:#78788033;--fill2:#78788029;--fill3:#7676801F;
+  --lbl:#000;--lbl2:#3C3C43;--lbl3:#3C3C4399;
+  --blue:#007AFF;--green:#34C759;--red:#FF3B30;--orange:#FF9500;
+  --yellow:#FFCC00;--purple:#AF52DE;--pink:#FF2D55;--indigo:#5856D6;--teal:#5AC8FA;
+  --shadow:0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 16px 40px rgba(0,0,0,0.13),0 3px 10px rgba(0,0,0,0.06);
+  --r:12px;--rl:16px;--rxl:20px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--lbl);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{background:rgba(242,242,247,.94);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--sep);position:sticky;top:0;z-index:300}
+.nav-in{max-width:1300px;margin:0 auto;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:32px;height:32px;background:linear-gradient(135deg,#007AFF,#5856D6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(0,122,255,.35);flex-shrink:0}
+.nav-title{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.nav-sub{font-size:11px;color:var(--lbl3)}
+.nav-badge{padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700;background:rgba(0,122,255,.1);color:var(--blue)}
+.nav-period{padding:4px 12px;border-radius:8px;font-size:11px;font-weight:600;background:rgba(52,199,89,.1);color:var(--green)}
+
+/* WRAP */
+.wrap{max-width:1300px;margin:0 auto;padding:24px 20px 64px}
+
+/* PAGE HEADER */
+.phdr{margin-bottom:28px;padding:24px 28px;background:#fff;border-radius:var(--rxl);box-shadow:var(--shadow);display:flex;align-items:flex-start;justify-content:space-between;gap:20px;animation:fadeUp .4s ease both}
+.phdr-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:rgba(0,122,255,.08);color:var(--blue);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.phdr-title{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:4px}
+.phdr-sub{font-size:13px;color:var(--lbl3);line-height:1.5}
+.phdr-right{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.phdr-chip{padding:10px 16px;border-radius:12px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:82px}
+.phdr-chip-val{font-size:20px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.phdr-chip-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;opacity:.7}
+
+/* SECTION LABEL */
+.sec-lbl{font-size:13px;font-weight:700;letter-spacing:-.1px;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--lbl2)}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--sep)}
+
+/* GLOBAL KPIs */
+.gkpi{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:28px;animation:fadeUp .4s .05s ease both}
+.gk{background:#fff;border-radius:var(--r);padding:16px 14px;box-shadow:var(--shadow);text-align:center;border:1.5px solid transparent;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s}
+.gk:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.gk-val{font-size:24px;font-weight:800;letter-spacing:-1px;line-height:1}
+.gk-lbl{font-size:9px;color:var(--lbl3);font-weight:600;margin-top:5px;text-transform:uppercase;letter-spacing:.4px}
+.gk-sub{font-size:10px;font-weight:600;margin-top:3px;opacity:.6}
+.gk-blue{color:var(--blue);border-color:rgba(0,122,255,.12);background:rgba(0,122,255,.03)}
+.gk-green{color:var(--green);border-color:rgba(52,199,89,.15);background:rgba(52,199,89,.03)}
+.gk-red{color:var(--red);border-color:rgba(255,59,48,.12);background:rgba(255,59,48,.03)}
+.gk-orange{color:var(--orange);border-color:rgba(255,149,0,.15);background:rgba(255,149,0,.03)}
+.gk-purple{color:var(--purple);border-color:rgba(175,82,222,.12);background:rgba(175,82,222,.03)}
+.gk-neutral{color:var(--lbl2);border-color:var(--sep)}
+
+/* EXECUTIVE CARDS */
+.exec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;animation:fadeUp .45s .05s ease both}
+.ec{background:#fff;border-radius:var(--rxl);padding:20px;box-shadow:var(--shadow);border:2px solid transparent;position:relative;overflow:hidden;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s}
+.ec:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--vc)}
+.ec::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--vc)}
+.ec:nth-child(1){animation:fadeUp .45s .05s ease both}
+.ec:nth-child(2){animation:fadeUp .45s .10s ease both}
+.ec:nth-child(3){animation:fadeUp .45s .15s ease both}
+.ec:nth-child(4){animation:fadeUp .45s .20s ease both}
+.ec-avatar{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;background:color-mix(in srgb,var(--vc) 12%,#fff)}
+.ec-name{font-size:17px;font-weight:800;letter-spacing:-.4px;margin-bottom:2px;color:var(--vc)}
+.ec-sub{font-size:11px;color:var(--lbl3);margin-bottom:14px}
+.ec-kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.ek{background:var(--bg);border-radius:9px;padding:9px 10px}
+.ek-val{font-size:19px;font-weight:800;letter-spacing:-.7px;line-height:1}
+.ek-lbl{font-size:9px;color:var(--lbl3);font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.3px}
+.ec-pipe{border-top:1px solid var(--fill3);padding-top:10px;margin-top:2px}
+.ec-pipe-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;font-size:11px}
+.ep-lbl{color:var(--lbl3);font-weight:500;display:flex;align-items:center;gap:5px}
+.ep-val{font-weight:700;color:var(--lbl2)}
+.rr-bar{margin-top:10px}
+.rr-top{display:flex;justify-content:space-between;font-size:10px;font-weight:700;margin-bottom:4px;color:var(--lbl3)}
+.rr-track{height:6px;background:var(--fill3);border-radius:4px;overflow:hidden}
+.rr-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--vc),color-mix(in srgb,var(--vc) 65%,#fff))}
+
+/* MONTH TABS */
+.tab-nav{display:flex;gap:6px;margin-bottom:16px;background:#fff;padding:6px;border-radius:var(--r);box-shadow:var(--shadow);width:fit-content}
+.tab-btn{padding:7px 20px;border-radius:9px;border:none;font:600 12px/1 var(--font);cursor:pointer;background:transparent;color:var(--lbl3);transition:all .15s}
+.tab-btn.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(0,122,255,.3)}
+.month-panel{display:none}
+.month-panel.active{display:block}
+
+/* MONTH METRICS */
+.month-metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
+.mm{background:#fff;border-radius:var(--r);padding:13px 12px;box-shadow:var(--shadow);text-align:center}
+.mm-val{font-size:21px;font-weight:800;letter-spacing:-.8px;line-height:1}
+.mm-lbl{font-size:9px;color:var(--lbl3);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:.3px}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+
+/* CARD */
+.card{background:#fff;border-radius:var(--rl);padding:18px 20px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+
+/* EXEC ROWS */
+.er{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--fill3)}
+.er:last-child{border-bottom:none}
+.er-name{font-size:12px;font-weight:600;width:82px;flex-shrink:0}
+.er-bar-bg{flex:1;height:7px;background:var(--fill3);border-radius:4px;overflow:hidden}
+.er-bar-fill{height:100%;border-radius:4px}
+.er-info{font-size:11px;color:var(--lbl3);text-align:right;min-width:118px}
+
+/* SLA */
+.sla-row{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.sla-label{font-size:12px;font-weight:600;width:82px;flex-shrink:0}
+.sla-track{flex:1;height:10px;background:var(--fill3);border-radius:6px;overflow:hidden}
+.sla-fill{height:100%;border-radius:6px}
+.sla-pct{font-size:12px;font-weight:700;width:42px;text-align:right}
+
+/* DIST BADGES */
+.dist-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.dist-badge{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700}
+
+/* CLIENT TABLE */
+.client-section{background:#fff;border-radius:var(--rxl);box-shadow:var(--shadow);overflow:hidden;margin-bottom:28px;animation:fadeUp .45s .2s ease both}
+.cs-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--sep);flex-wrap:wrap;gap:8px}
+.cs-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.cs-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.cs-tbl thead th{background:#F7F8FA;padding:9px 16px;text-align:left;font-size:10px;font-weight:700;color:var(--lbl3);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--sep)}
+.cs-tbl tbody tr{border-bottom:1px solid var(--fill3);transition:background .07s}
+.cs-tbl tbody tr:hover{background:#F7F8FA}
+.cs-tbl tbody td{padding:10px 16px;vertical-align:middle}
+.cs-tbl tbody tr:last-child td{border-bottom:none}
+.client-name{font-weight:700;color:var(--lbl)}
+.pct-bar-wrap{display:flex;align-items:center;gap:8px}
+.pct-track{width:72px;height:6px;background:var(--fill3);border-radius:3px;overflow:hidden;flex-shrink:0}
+.pct-fill{height:100%;border-radius:3px}
+.pct-val{font-size:11px;font-weight:700;min-width:36px}
+
+/* BADGES */
+.bdg{display:inline-flex;align-items:center;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.2px}
+.bdg-r{background:rgba(255,59,48,.1);color:var(--red)}
+.bdg-o{background:rgba(255,149,0,.1);color:var(--orange)}
+.bdg-g{background:rgba(52,199,89,.1);color:var(--green)}
+.bdg-b{background:rgba(0,122,255,.1);color:var(--blue)}
+.bdg-p{background:rgba(175,82,222,.1);color:var(--purple)}
+.bdg-gray{background:var(--fill3);color:var(--lbl3)}
+
+/* INCIDENCIAS */
+.inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.inc-card{background:#fff;border-radius:var(--rl);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--ic);animation:fadeUp .45s .25s ease both}
+.inc-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+.inc-icon{font-size:22px;flex-shrink:0;line-height:1}
+.inc-title{font-size:13px;font-weight:700;color:var(--lbl);line-height:1.3}
+.inc-desc{font-size:12px;color:var(--lbl3);line-height:1.6}
+.inc-footer{margin-top:10px;padding-top:10px;border-top:1px solid var(--fill3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* CHART */
+.chart-wrap{position:relative;height:180px;width:100%}
+
+/* ALERT BANNER */
+.alert-banner{border-radius:var(--rl);padding:14px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px;font-size:12px}
+.alert-icon{font-size:20px;flex-shrink:0;line-height:1.2}
+.alert-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.alert-desc{color:inherit;opacity:.8;line-height:1.5}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.exec-grid{grid-template-columns:repeat(2,1fr)}.gkpi{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.exec-grid{grid-template-columns:1fr}.gkpi{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.month-metrics{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <div class="nav-logo">EC</div>
+      <div>
+        <div class="nav-title">Energy Cargo &amp; Solutions</div>
+        <div class="nav-sub">Reporte Comercial · Período Q1 2026</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="nav-badge">📊 Q1 Report</span>
+      <span class="nav-period">✅ Feb · Mar · Abr 2026</span>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="phdr">
+    <div>
+      <div class="phdr-tag">📦 Reporte Comercial Q1</div>
+      <div class="phdr-title">Análisis de Cotizaciones 2026</div>
+      <div class="phdr-sub">Período: Febrero · Marzo · Abril 2026 &nbsp;·&nbsp; <strong>821 cotizaciones</strong> procesadas<br>Equipo CS: Gabriel · Estefanía · Jimena · Inside Sales</div>
+    </div>
+    <div class="phdr-right">
+      <div class="phdr-chip" style="background:rgba(52,199,89,.08);color:var(--green)">
+        <div class="phdr-chip-val">83.9%</div>
+        <div class="phdr-chip-lbl">Tasa Cierre</div>
+      </div>
+      <div class="phdr-chip" style="background:rgba(0,122,255,.08);color:var(--blue)">
+        <div class="phdr-chip-val">1.77d</div>
+        <div class="phdr-chip-lbl">T. Respuesta</div>
+      </div>
+      <div class="phdr-chip" style="background:rgba(175,82,222,.08);color:var(--purple)">
+        <div class="phdr-chip-val">41.3%</div>
+        <div class="phdr-chip-lbl">Margen Prom.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOBAL KPIs -->
+  <div class="sec-lbl">Resumen General del Período</div>
+  <div class="gkpi">
+    <div class="gk gk-neutral">
+      <div class="gk-val">821</div>
+      <div class="gk-lbl">Total cotizaciones</div>
+      <div class="gk-sub" style="color:var(--lbl3)">Feb + Mar + Abr</div>
+    </div>
+    <div class="gk gk-green">
+      <div class="gk-val">313</div>
+      <div class="gk-lbl">Ganadas</div>
+      <div class="gk-sub">38.1% conversión</div>
+    </div>
+    <div class="gk gk-red">
+      <div class="gk-val">60</div>
+      <div class="gk-lbl">No cerradas</div>
+      <div class="gk-sub">7.3% pérdida</div>
+    </div>
+    <div class="gk gk-blue">
+      <div class="gk-val">1.77d</div>
+      <div class="gk-lbl">T. prom. respuesta</div>
+      <div class="gk-sub">SLA ≤2d: 82.2%</div>
+    </div>
+    <div class="gk gk-purple">
+      <div class="gk-val">41.3%</div>
+      <div class="gk-lbl">Margen promedio</div>
+      <div class="gk-sub">Mediana: 31.0%</div>
+    </div>
+    <div class="gk gk-orange">
+      <div class="gk-val">448</div>
+      <div class="gk-lbl">En pipeline</div>
+      <div class="gk-sub">Sin feedback + abiertas</div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE CARDS -->
+  <div class="sec-lbl">Rendimiento por CS Ejecutivo</div>
+  <div class="exec-grid">
+
+    <!-- GABRIEL -->
+    <div class="ec" style="--vc:var(--blue)">
+      <div class="ec-avatar">💙</div>
+      <div class="ec-name">GABRIEL</div>
+      <div class="ec-sub">323 cotizaciones · Mayor volumen Q1</div>
+      <div class="ec-kpi-grid">
+        <div class="ek">
+          <div class="ek-val" style="color:var(--green)">81.4%</div>
+          <div class="ek-lbl">% Cierre</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--purple)">42.7%</div>
+          <div class="ek-lbl">Profit Prom.</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--blue)">93.5%</div>
+          <div class="ek-lbl">SLA ≤2 días</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--orange)">0.64d</div>
+          <div class="ek-lbl">T. Respuesta</div>
+        </div>
+      </div>
+      <div class="ec-pipe">
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">✅ Cerradas</span>
+          <span class="ep-val" style="color:var(--green)">97</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">🎯 Asig. Directa</span>
+          <span class="ep-val" style="color:var(--blue)">21</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">❌ No Cerradas</span>
+          <span class="ep-val" style="color:var(--red)">27</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">⏳ Pipeline</span>
+          <span class="ep-val" style="color:var(--lbl3)">178</span>
+        </div>
+      </div>
+      <div class="rr-bar">
+        <div class="rr-top"><span>Tasa de Cierre</span><span>81.4%</span></div>
+        <div class="rr-track"><div class="rr-fill" style="width:81.4%"></div></div>
+      </div>
+    </div>
+
+    <!-- ESTEFANÍA -->
+    <div class="ec" style="--vc:var(--pink)">
+      <div class="ec-avatar">🌸</div>
+      <div class="ec-name">ESTEFANÍA</div>
+      <div class="ec-sub">261 cotizaciones · Vesuvius · exportación</div>
+      <div class="ec-kpi-grid">
+        <div class="ek">
+          <div class="ek-val" style="color:var(--orange)">76.8%</div>
+          <div class="ek-lbl">% Cierre</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--purple)">39.7%</div>
+          <div class="ek-lbl">Profit Prom.</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--green)">82.3%</div>
+          <div class="ek-lbl">SLA ≤2 días</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--blue)">1.27d</div>
+          <div class="ek-lbl">T. Respuesta</div>
+        </div>
+      </div>
+      <div class="ec-pipe">
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">✅ Cerradas</span>
+          <span class="ep-val" style="color:var(--green)">76</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">🎯 Asig. Directa</span>
+          <span class="ep-val" style="color:var(--lbl3)">0</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">❌ No Cerradas</span>
+          <span class="ep-val" style="color:var(--red)">23</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">⏳ Pipeline</span>
+          <span class="ep-val" style="color:var(--lbl3)">162</span>
+        </div>
+      </div>
+      <div class="rr-bar">
+        <div class="rr-top"><span>Tasa de Cierre</span><span>76.8%</span></div>
+        <div class="rr-track"><div class="rr-fill" style="width:76.8%"></div></div>
+      </div>
+    </div>
+
+    <!-- JIMENA -->
+    <div class="ec" style="--vc:var(--orange)">
+      <div class="ec-avatar">🏆</div>
+      <div class="ec-name">JIMENA</div>
+      <div class="ec-sub">170 cotizaciones · Mayor tasa de cierre Q1</div>
+      <div class="ec-kpi-grid">
+        <div class="ek">
+          <div class="ek-val" style="color:var(--green)">91.9%</div>
+          <div class="ek-lbl">% Cierre</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--purple)">41.1%</div>
+          <div class="ek-lbl">Profit Prom.</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--red)">57.6%</div>
+          <div class="ek-lbl">SLA ≤2 días</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--orange)">5.09d</div>
+          <div class="ek-lbl">T. Respuesta</div>
+        </div>
+      </div>
+      <div class="ec-pipe">
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">✅ Cerradas</span>
+          <span class="ep-val" style="color:var(--green)">50</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">🎯 Asig. Directa</span>
+          <span class="ep-val" style="color:var(--blue)">64</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">❌ No Cerradas</span>
+          <span class="ep-val" style="color:var(--red)">10</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">⏳ Pipeline</span>
+          <span class="ep-val" style="color:var(--lbl3)">46</span>
+        </div>
+      </div>
+      <div class="rr-bar">
+        <div class="rr-top"><span>Tasa de Cierre</span><span>91.9% 🏆</span></div>
+        <div class="rr-track"><div class="rr-fill" style="width:91.9%"></div></div>
+      </div>
+    </div>
+
+    <!-- INSIDE S -->
+    <div class="ec" style="--vc:var(--indigo)">
+      <div class="ec-avatar">🎯</div>
+      <div class="ec-name">INSIDE SALES</div>
+      <div class="ec-sub">64 cotizaciones · Canal interno directo</div>
+      <div class="ec-kpi-grid">
+        <div class="ek">
+          <div class="ek-val" style="color:var(--green)">100%</div>
+          <div class="ek-lbl">% Cierre</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--lbl3)">—</div>
+          <div class="ek-lbl">Profit Prom.</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--green)">86.0%</div>
+          <div class="ek-lbl">SLA ≤2 días</div>
+        </div>
+        <div class="ek">
+          <div class="ek-val" style="color:var(--blue)">1.14d</div>
+          <div class="ek-lbl">T. Respuesta</div>
+        </div>
+      </div>
+      <div class="ec-pipe">
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">✅ Cerradas</span>
+          <span class="ep-val" style="color:var(--green)">5</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">🎯 Asig. Directa</span>
+          <span class="ep-val" style="color:var(--lbl3)">0</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">❌ No Cerradas</span>
+          <span class="ep-val" style="color:var(--green)">0</span>
+        </div>
+        <div class="ec-pipe-row">
+          <span class="ep-lbl">⏳ Pipeline</span>
+          <span class="ep-val" style="color:var(--orange)">59</span>
+        </div>
+      </div>
+      <div class="rr-bar">
+        <div class="rr-top"><span>Tasa de Cierre</span><span style="color:var(--lbl3)">Muestra pequeña</span></div>
+        <div class="rr-track"><div class="rr-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ANÁLISIS POR MES -->
+  <div class="sec-lbl">Análisis Mensual Detallado</div>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('feb',this)">📅 Febrero</button>
+    <button class="tab-btn" onclick="showTab('mar',this)">📅 Marzo</button>
+    <button class="tab-btn" onclick="showTab('abr',this)">📅 Abril</button>
+  </div>
+
+  <!-- FEBRERO -->
+  <div id="tab-feb" class="month-panel active">
+    <div class="month-metrics">
+      <div class="mm"><div class="mm-val">197</div><div class="mm-lbl">Cotizaciones</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">82</div><div class="mm-lbl">Ganadas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--red)">19</div><div class="mm-lbl">No Cerradas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--blue)">1.91d</div><div class="mm-lbl">T. Respuesta</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">83.6%</div><div class="mm-lbl">SLA ≤2d</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--purple)">40.5%</div><div class="mm-lbl">Margen</div></div>
+    </div>
+    <div class="alert-banner" style="background:rgba(255,149,0,.08);color:#7A4800">
+      <div class="alert-icon">⚠️</div>
+      <div><div class="alert-title">Tasa de cierre más baja del trimestre — 81.2%</div><div class="alert-desc">Gabriel acumula 15 pérdidas por precio en WEG (Brasil Aéreo, China FCL). Jimena logra 97% de cierre gracias a asignaciones directas de MAFMEX.</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">📊 Rendimiento por ejecutivo</div>
+        <div class="er">
+          <div class="er-name" style="color:var(--blue)">Gabriel</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:72%;background:var(--blue)"></div></div>
+          <div class="er-info">93 cot · <b>72% cierre</b> · 47% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--pink)">Estefanía</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:83%;background:var(--pink)"></div></div>
+          <div class="er-info">61 cot · <b>83% cierre</b> · 31% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--orange)">Jimena</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:97%;background:var(--orange)"></div></div>
+          <div class="er-info">38 cot · <b style="color:var(--green)">97% cierre</b> · 36% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--indigo)">Inside S</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:5%;background:var(--indigo)"></div></div>
+          <div class="er-info">2 cot · — · —</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 Servicios cotizados</div>
+        <div class="chart-wrap"><canvas id="chartFeb"></canvas></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">📌 Puntos clave · Febrero</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;font-size:12px;color:var(--lbl3);line-height:1.6">
+        <div><strong style="color:var(--red);display:block;margin-bottom:3px">WEG: 15 pérdidas por precio</strong>Rutas Brasil Aéreo (−USD 159–400), FCL China (−USD 2,000 a pesar de cotizar con 18% margen) y LCL Santos (−USD 70). El mes más duro de Gabriel vs. competencia.</div>
+        <div><strong style="color:var(--red);display:block;margin-bottom:3px">Vesuvius: primera señal de alarma</strong>3 cancelaciones simultáneas Turquía→Altamira el mismo día: <em>"se cancelaron los servicios, ya no se harán"</em>. Inicio del patrón de deterioro.</div>
+        <div><strong style="color:var(--orange);display:block;margin-bottom:3px">Jimena: SLA bajo, conversión alta</strong>Solo 46% de SLA pero 97% de tasa de cierre. La causa: asignaciones directas MAFMEX/AMASS con demoras de 20–38 días que aun así cierran.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARZO -->
+  <div id="tab-mar" class="month-panel">
+    <div class="month-metrics">
+      <div class="mm"><div class="mm-val">329</div><div class="mm-lbl">Cotizaciones</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">148</div><div class="mm-lbl">Ganadas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--red)">19</div><div class="mm-lbl">No Cerradas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--blue)">1.97d</div><div class="mm-lbl">T. Respuesta</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">81.1%</div><div class="mm-lbl">SLA ≤2d</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--purple)">38.7%</div><div class="mm-lbl">Margen</div></div>
+    </div>
+    <div class="alert-banner" style="background:rgba(52,199,89,.08);color:#1A5E30">
+      <div class="alert-icon">🏆</div>
+      <div><div class="alert-title">Mejor mes del trimestre en tasa de cierre — 88.6%</div><div class="alert-desc">Mayor volumen (329 cots) y $132,827 USD de profit documentado — el 72.8% del profit total del período. Jimena logra 97% de cierre, Estefanía 87%.</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">📊 Rendimiento por ejecutivo</div>
+        <div class="er">
+          <div class="er-name" style="color:var(--blue)">Gabriel</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:80%;background:var(--blue)"></div></div>
+          <div class="er-info">105 cot · <b>80% cierre</b> · 36% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--pink)">Estefanía</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:87%;background:var(--pink)"></div></div>
+          <div class="er-info">109 cot · <b>87% cierre</b> · 41% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--orange)">Jimena</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:97%;background:var(--orange)"></div></div>
+          <div class="er-info">77 cot · <b style="color:var(--green)">97% cierre</b> · 39% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--indigo)">Inside S</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:100%;background:var(--indigo)"></div></div>
+          <div class="er-info">38 cot · <b>100% cierre</b> · 33% mg</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 Servicios cotizados</div>
+        <div class="chart-wrap"><canvas id="chartMar"></canvas></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">📌 Puntos clave · Marzo</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;font-size:12px;color:var(--lbl3);line-height:1.6">
+        <div><strong style="color:var(--green);display:block;margin-bottom:3px">$132,827 USD de profit documentado</strong>El mes más rentable del trimestre. 71 cotizaciones con dato de profit USD con promedio de $1,871 por operación. Concentra el 72.8% del profit del Q1.</div>
+        <div><strong style="color:var(--orange);display:block;margin-bottom:3px">WEG: 6 pérdidas más en LCL Shanghai</strong>Helen reporta propuestas externas a USD 100–151 vs los USD 240–290 de Energy. El problema de tarifa de compra en Shanghai-Manzanillo se confirma como estructural.</div>
+        <div><strong style="color:var(--red);display:block;margin-bottom:3px">Vesuvius: "andan regalando tarifas"</strong>1 LCL China perdido con nota explícita. Turquía cambia de modalidad LCL→Aéreo por Holidays, generando re-cotización con demora. El cliente comienza a operar sin informar a EC.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABRIL -->
+  <div id="tab-abr" class="month-panel">
+    <div class="month-metrics">
+      <div class="mm"><div class="mm-val">295</div><div class="mm-lbl">Cotizaciones</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">83</div><div class="mm-lbl">Ganadas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--red)">22</div><div class="mm-lbl">No Cerradas</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">1.45d</div><div class="mm-lbl">T. Respuesta</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--green)">82.5%</div><div class="mm-lbl">SLA ≤2d</div></div>
+      <div class="mm"><div class="mm-val" style="color:var(--purple)">46.9%</div><div class="mm-lbl">Margen</div></div>
+    </div>
+    <div class="alert-banner" style="background:rgba(255,59,48,.07);color:#8B1010">
+      <div class="alert-icon">🚨</div>
+      <div><div class="alert-title">Estefanía: caída fuerte en cierre — 61% · 14 pérdidas</div><div class="alert-desc">Todas concentradas en Vesuvius (cierran sin avisar) y cuentas relacionadas. Gabriel se recupera a 97% y Jimena logra 52% de margen — el más alto del equipo en el trimestre.</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">📊 Rendimiento por ejecutivo</div>
+        <div class="er">
+          <div class="er-name" style="color:var(--blue)">Gabriel</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:97%;background:var(--blue)"></div></div>
+          <div class="er-info">125 cot · <b style="color:var(--green)">97% cierre</b> · 47% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--pink)">Estefanía</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:61%;background:var(--red)"></div></div>
+          <div class="er-info">91 cot · <b style="color:var(--red)">61% cierre</b> · 42% mg</div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--orange)">Jimena</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:79%;background:var(--orange)"></div></div>
+          <div class="er-info">55 cot · <b>79% cierre</b> · <b style="color:var(--green)">52% mg</b></div>
+        </div>
+        <div class="er">
+          <div class="er-name" style="color:var(--indigo)">Inside S</div>
+          <div class="er-bar-bg"><div class="er-bar-fill" style="width:5%;background:var(--indigo)"></div></div>
+          <div class="er-info">24 cot · — · —</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 Servicios cotizados</div>
+        <div class="chart-wrap"><canvas id="chartAbr"></canvas></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">📌 Puntos clave · Abril</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;font-size:12px;color:var(--lbl3);line-height:1.6">
+        <div><strong style="color:var(--green);display:block;margin-bottom:3px">Mejor velocidad y margen del Q1</strong>1.45 días de respuesta y 46.9% de margen promedio — ambos los mejores del trimestre. Jimena llega a 52% de margen con el menor volumen del período.</div>
+        <div><strong style="color:var(--red);display:block;margin-bottom:3px">Vesuvius colapsa en Abril</strong>14 no cerradas de Estefanía, varias con nota <em>"cerró rápido, no alcancé"</em>. El cliente está comprometiendo carga con otros proveedores antes de consultar a Energy Cargo. Requiere intervención comercial directa.</div>
+        <div><strong style="color:var(--green);display:block;margin-bottom:3px">Gabriel: recuperación total</strong>Solo 1 no cerrada en 125 cotizaciones (97%). El equipo demuestra que cuando el precio es competitivo, la conversión es casi perfecta.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px"></div>
+
+  <!-- SLA -->
+  <div class="sec-lbl">SLA de Cotización — Cumplimiento ≤ 2 Días Hábiles</div>
+  <div class="two-col" style="margin-bottom:28px">
+    <div class="card">
+      <div class="card-title">📅 Cumplimiento por mes y ejecutivo</div>
+      <div class="sla-row">
+        <div class="sla-label">Febrero</div>
+        <div class="sla-track"><div class="sla-fill" style="width:83.6%;background:var(--green)"></div></div>
+        <div class="sla-pct" style="color:var(--green)">83.6%</div>
+      </div>
+      <div class="sla-row">
+        <div class="sla-label">Marzo</div>
+        <div class="sla-track"><div class="sla-fill" style="width:81.1%;background:var(--orange)"></div></div>
+        <div class="sla-pct" style="color:var(--orange)">81.1%</div>
+      </div>
+      <div class="sla-row">
+        <div class="sla-label">Abril</div>
+        <div class="sla-track"><div class="sla-fill" style="width:82.5%;background:var(--green)"></div></div>
+        <div class="sla-pct" style="color:var(--green)">82.5%</div>
+      </div>
+      <div style="border-top:1px solid var(--fill3);margin:12px 0 12px"></div>
+      <div class="sla-row">
+        <div class="sla-label" style="color:var(--blue)">Gabriel</div>
+        <div class="sla-track"><div class="sla-fill" style="width:93.5%;background:var(--blue)"></div></div>
+        <div class="sla-pct" style="color:var(--blue)">93.5%</div>
+      </div>
+      <div class="sla-row">
+        <div class="sla-label" style="color:var(--indigo)">Inside S</div>
+        <div class="sla-track"><div class="sla-fill" style="width:86%;background:var(--indigo)"></div></div>
+        <div class="sla-pct" style="color:var(--indigo)">86.0%</div>
+      </div>
+      <div class="sla-row">
+        <div class="sla-label" style="color:var(--pink)">Estefanía</div>
+        <div class="sla-track"><div class="sla-fill" style="width:82.3%;background:var(--pink)"></div></div>
+        <div class="sla-pct" style="color:var(--pink)">82.3%</div>
+      </div>
+      <div class="sla-row">
+        <div class="sla-label" style="color:var(--red)">Jimena</div>
+        <div class="sla-track"><div class="sla-fill" style="width:57.6%;background:var(--red)"></div></div>
+        <div class="sla-pct" style="color:var(--red)">57.6%</div>
+      </div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--fill3);font-size:11px;color:var(--lbl3)">
+        ⚠️ <strong>66 cotizaciones sin fecha de envío:</strong> Inside S 21 · Jimena 18 · Gabriel 13 · Estefanía 13
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⏱ Distribución de tiempos — Q1 global</div>
+      <div class="chart-wrap"><canvas id="chartSLA"></canvas></div>
+      <div class="dist-row">
+        <div class="dist-badge" style="background:rgba(52,199,89,.12);color:var(--green)">✅ Mismo día: 44.6%</div>
+        <div class="dist-badge" style="background:rgba(52,199,89,.08);color:var(--green)">✅ 1 día: 33.2%</div>
+        <div class="dist-badge" style="background:rgba(255,149,0,.1);color:var(--orange)">⚠️ 2 días: 4.4%</div>
+        <div class="dist-badge" style="background:rgba(255,149,0,.08);color:var(--orange)">⚠️ 3–5 días: 11.6%</div>
+        <div class="dist-badge" style="background:rgba(255,59,48,.1);color:var(--red)">🔴 +5 días: 6.2%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTES CRÍTICOS -->
+  <div class="sec-lbl">Clientes con Seguimiento Crítico</div>
+  <div class="client-section">
+    <div class="cs-hdr">
+      <div class="cs-title">🔍 Pipeline de Cuentas — Feb · Mar · Abr 2026</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="bdg bdg-r">🔴 Crítico</span>
+        <span class="bdg bdg-o">🟡 Seguimiento</span>
+        <span class="bdg bdg-g">✅ Saludable</span>
+        <span class="bdg bdg-gray">⏳ Pipeline</span>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="cs-tbl">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Ejecutivo</th>
+            <th>Total Q1</th>
+            <th>Cerradas</th>
+            <th>Asig. Dir.</th>
+            <th>No Cerradas</th>
+            <th>Pipeline</th>
+            <th>Tasa NC</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:800;color:var(--red)">1</td>
+            <td><div class="client-name">Vesuvius Mexico SA de CV</div></td>
+            <td><span class="bdg" style="background:rgba(255,45,85,.1);color:var(--pink)">Estefanía</span></td>
+            <td><b>105</b></td>
+            <td style="color:var(--green)">26</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--red)"><b>19</b></td>
+            <td style="color:var(--orange)">60</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:100%;background:var(--red)"></div></div><span class="pct-val" style="color:var(--red)">42.2%</span></div></td>
+            <td><span class="bdg bdg-r">Crítico ⬆️</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--red)">2</td>
+            <td><div class="client-name">WEG Mexico</div></td>
+            <td><span class="bdg" style="background:rgba(0,122,255,.1);color:var(--blue)">Gabriel</span></td>
+            <td><b>140</b></td>
+            <td style="color:var(--green)">63</td>
+            <td style="color:var(--blue)">0</td>
+            <td style="color:var(--red)"><b>21</b></td>
+            <td style="color:var(--orange)">56</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:60%;background:var(--red)"></div></div><span class="pct-val" style="color:var(--red)">25.0%</span></div></td>
+            <td><span class="bdg bdg-r">Crítico</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--red)">3</td>
+            <td><div class="client-name">Euroquip SA de CV</div></td>
+            <td><span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena</span></td>
+            <td><b>15</b></td>
+            <td style="color:var(--red)">0</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--red)"><b>1</b></td>
+            <td style="color:var(--orange)">14</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:100%;background:var(--red)"></div></div><span class="pct-val" style="color:var(--red)">~100%</span></div></td>
+            <td><span class="bdg bdg-r">Sin cierres</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--orange)">4</td>
+            <td><div class="client-name">CCL Design Mexico</div></td>
+            <td><span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena</span></td>
+            <td><b>27</b></td>
+            <td style="color:var(--green)">10</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--red)"><b>4</b></td>
+            <td style="color:var(--orange)">13</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:68%;background:var(--orange)"></div></div><span class="pct-val" style="color:var(--orange)">28.6%</span></div></td>
+            <td><span class="bdg bdg-o">Seguimiento</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--orange)">5</td>
+            <td><div class="client-name">Voltran SA de CV</div></td>
+            <td><span class="bdg" style="background:rgba(0,122,255,.1);color:var(--blue)">Gabriel</span></td>
+            <td><b>45</b></td>
+            <td style="color:var(--green)">13</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--red)"><b>5</b></td>
+            <td style="color:var(--orange)">27</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:66%;background:var(--orange)"></div></div><span class="pct-val" style="color:var(--orange)">27.8%</span></div></td>
+            <td><span class="bdg bdg-o">Seguimiento</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--lbl3)">6</td>
+            <td><div class="client-name">Mafmex S. de RL de CV</div></td>
+            <td><span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena</span></td>
+            <td><b>70</b></td>
+            <td style="color:var(--green)">18</td>
+            <td style="color:var(--blue)">46</td>
+            <td style="color:var(--green)"><b>2</b></td>
+            <td style="color:var(--lbl3)">4</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:9%;background:var(--green)"></div></div><span class="pct-val" style="color:var(--green)">3.0%</span></div></td>
+            <td><span class="bdg bdg-g">Saludable</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--lbl3)">7</td>
+            <td><div class="client-name">Imbera</div></td>
+            <td><span class="bdg" style="background:rgba(0,122,255,.1);color:var(--blue)">Gabriel</span></td>
+            <td><b>31</b></td>
+            <td style="color:var(--green)">8</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--green)"><b>0</b></td>
+            <td style="color:var(--orange)">23</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:0%;background:var(--green)"></div></div><span class="pct-val" style="color:var(--lbl3)">—</span></div></td>
+            <td><span class="bdg bdg-gray">⏳ Pipeline</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--lbl3)">8</td>
+            <td><div class="client-name">Engel Machinery Mexico</div></td>
+            <td><span class="bdg" style="background:rgba(0,122,255,.1);color:var(--blue)">Gabriel</span></td>
+            <td><b>30</b></td>
+            <td style="color:var(--green)">7</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--orange)"><b>1</b></td>
+            <td style="color:var(--orange)">22</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:30%;background:var(--orange)"></div></div><span class="pct-val" style="color:var(--orange)">12.5%</span></div></td>
+            <td><span class="bdg bdg-gray">⏳ Pipeline</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--lbl3)">9</td>
+            <td><div class="client-name">Tecnostamptriulzi Mexico</div></td>
+            <td><span class="bdg" style="background:rgba(0,122,255,.1);color:var(--blue)">Gabriel</span></td>
+            <td><b>15</b></td>
+            <td style="color:var(--green)">9</td>
+            <td style="color:var(--lbl3)">0</td>
+            <td style="color:var(--orange)"><b>1</b></td>
+            <td style="color:var(--lbl3)">5</td>
+            <td><div class="pct-bar-wrap"><div class="pct-track"><div class="pct-fill" style="width:25%;background:var(--orange)"></div></div><span class="pct-val" style="color:var(--orange)">10.0%</span></div></td>
+            <td><span class="bdg bdg-g">Estable</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INCIDENCIAS -->
+  <div class="sec-lbl">Principales Incidencias de Servicio</div>
+  <div class="inc-grid">
+
+    <div class="inc-card" style="--ic:var(--red)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">💸</div>
+          <div class="inc-title">Precio fuera de mercado — WEG Mexico · 21 pérdidas</div>
+        </div>
+        <span class="bdg bdg-r">Estructural</span>
+      </div>
+      <div class="inc-desc">21 no cerradas en el período, todas de Gabriel, todas por precio. Rutas críticas: <strong>Brasil→México Aéreo</strong> (brechas USD 159–400), <strong>Shanghai/Shenzhen→Manzanillo LCL</strong> (USD 100–151, Helen Ibarra en WEG recibe mejores propuestas sistemáticamente) y <strong>China→Manzanillo FCL</strong> (USD 2,000 por encima incluso cotizando al 18% de margen). El problema es de tarifa de compra, no de operación ni seguimiento.</div>
+      <div class="inc-footer">
+        <span class="bdg bdg-r">WEG Mexico</span>
+        <span class="bdg bdg-b">Gabriel</span>
+        <span class="bdg bdg-gray">Feb–Mar 2026</span>
+      </div>
+    </div>
+
+    <div class="inc-card" style="--ic:var(--red)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">📉</div>
+          <div class="inc-title">Deterioro acelerado — Vesuvius Mexico · 42.2% NC</div>
+        </div>
+        <span class="bdg bdg-r">Urgente</span>
+      </div>
+      <div class="inc-desc"><strong>Feb:</strong> 3 cancelaciones simultáneas Turquía→Altamira <em>"ya no se harán"</em>. <strong>Mar:</strong> <em>"Otra vez le andan regalando las tarifas"</em> en China. <strong>Abr:</strong> 2 cierres sin tiempo de respuesta <em>"Cerró rápido, no alcancé"</em>. El cliente está comprometiendo carga con otros proveedores sin consultar a Energy Cargo — señal de que la relación comercial se está erosionando. Necesita intervención directa del área comercial.</div>
+      <div class="inc-footer">
+        <span class="bdg bdg-r">Vesuvius</span>
+        <span class="bdg" style="background:rgba(255,45,85,.1);color:var(--pink)">Estefanía</span>
+        <span class="bdg bdg-gray">Feb–Abr 2026</span>
+      </div>
+    </div>
+
+    <div class="inc-card" style="--ic:var(--orange)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">⏰</div>
+          <div class="inc-title">Demoras en asig. directas — MAFMEX / AMASS · 64 casos</div>
+        </div>
+        <span class="bdg bdg-o">Proceso externo</span>
+      </div>
+      <div class="inc-desc">64 cotizaciones de Jimena con 3+ días de respuesta, la mayoría vía MAFMEX (demoras de hasta 38 días) y CCL Design (21–31 días). El patrón es siempre el mismo: <strong>Asignación Directa + proveedor AMASS tarda en responder tarifas</strong>. También influyen cargas en hold por CNY y cambios de modalidad FCL→Aéreo. No es un problema de gestión interna — Jimena tiene 91.9% de tasa de cierre. Es dependencia de tercero lento.</div>
+      <div class="inc-footer">
+        <span class="bdg bdg-o">MAFMEX · CCL Design</span>
+        <span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena</span>
+        <span class="bdg bdg-gray">Todo el período</span>
+      </div>
+    </div>
+
+    <div class="inc-card" style="--ic:var(--orange)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">🔧</div>
+          <div class="inc-title">Ajustes a cotizaciones — Se duplicaron vs período anterior</div>
+        </div>
+        <span class="bdg bdg-o">33 casos</span>
+      </div>
+      <div class="inc-desc">33 cotizaciones con al menos un ajuste en el período (vs. 17 en el Q1 anterior). Distribución: 19 con 1 ajuste, 11 con 2 ajustes, 3 con 3 ajustes. Gabriel concentra 18 de los 33 casos — coincide con el mayor volumen individual. Causas identificadas: información de carga incompleta al recibir la solicitud y cambios de especificaciones del cliente posteriores al primer envío. Impacta tiempo de ciclo y puede derivar en pérdida de urgencia comercial.</div>
+      <div class="inc-footer">
+        <span class="bdg bdg-b">Gabriel: 18</span>
+        <span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena: 8</span>
+        <span class="bdg" style="background:rgba(255,45,85,.1);color:var(--pink)">Estefanía: 7</span>
+      </div>
+    </div>
+
+    <div class="inc-card" style="--ic:var(--red)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">🚫</div>
+          <div class="inc-title">Euroquip — Cero cierres en todo el trimestre</div>
+        </div>
+        <span class="bdg bdg-r">Sin conversión</span>
+      </div>
+      <div class="inc-desc">15 cotizaciones en el período — en su mayoría FCL China→Manzanillo — y 0 cierres. Las observaciones mencionan que se cotiza <em>"con margen del 15%"</em> al no poder ser más agresivos en precio. La situación es idéntica al período anterior. Requiere decisión ejecutiva: negociación de tarifa directa con el proveedor, modelo de cuenta especial o evaluación de la rentabilidad de seguir participando en los RFQs de esta cuenta.</div>
+      <div class="inc-footer">
+        <span class="bdg bdg-r">Euroquip</span>
+        <span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena</span>
+        <span class="bdg bdg-gray">Sin cambio vs Q1 anterior</span>
+      </div>
+    </div>
+
+    <div class="inc-card" style="--ic:var(--indigo)">
+      <div class="inc-hdr">
+        <div>
+          <div class="inc-icon">📋</div>
+          <div class="inc-title">Gap de documentación — 66 cotizaciones sin fecha de envío</div>
+        </div>
+        <span class="bdg" style="background:rgba(88,86,214,.1);color:var(--indigo)">Proceso</span>
+      </div>
+      <div class="inc-desc">66 cotizaciones sin fecha de envío registrada en el CRM — ligero aumento vs. 59 del período anterior. Inside Sales concentra 21 casos (el canal con menos registro sistemático), seguido de Jimena con 18 (en su mayoría asignaciones directas de largo plazo). Este gap impide medir el SLA real del equipo y puede ocultar pérdidas no documentadas. Reforzar el protocolo de cierre de loop en el sistema.</div>
+      <div class="inc-footer">
+        <span class="bdg" style="background:rgba(88,86,214,.1);color:var(--indigo)">Inside S: 21</span>
+        <span class="bdg" style="background:rgba(255,149,0,.1);color:var(--orange)">Jimena: 18</span>
+        <span class="bdg bdg-b">Gabriel: 13</span>
+        <span class="bdg" style="background:rgba(255,45,85,.1);color:var(--pink)">Estefanía: 13</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:16px;color:var(--lbl3);font-size:11px;border-top:1px solid var(--sep)">
+    Energy Cargo &amp; Solutions · Reporte Q1 2026 · Feb – Mar – Abr · 821 cotizaciones · Actualizado con datos del nuevo reporte
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.month-panel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#3C3C4399';
+
+const COLORS = ['#007AFF','#FF2D55','#FF9500','#5856D6','#34C759','#AF52DE'];
+
+function makeBar(id, labels, data) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: COLORS.slice(0, data.length), borderRadius: 6, borderSkipped: false }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => ' ' + c.raw + ' cotizaciones' } }
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: { grid: { color: 'rgba(128,128,128,0.07)' } }
+      }
+    }
+  });
+}
+
+function makeDoughnut(id, labels, data, colors) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff', hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 10, padding: 10, font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => ' ' + c.label + ': ' + c.raw } }
+      },
+      cutout: '62%'
+    }
+  });
+}
+
+// Servicios por mes (datos actualizados del nuevo reporte)
+makeBar('chartFeb',  ['Aéreo','LCL','FCL','LTL','FTL'], [77, 55, 45, 8, 6]);
+makeBar('chartMar',  ['Aéreo','LCL','FCL','LTL','FTL'], [122, 105, 80, 8, 7]);
+makeBar('chartAbr',  ['Aéreo','LCL','FCL','LTL','FTL'], [100, 98, 67, 13, 7]);
+
+// Distribución tiempos SLA (datos actualizados)
+makeDoughnut('chartSLA',
+  ['Mismo día (336)','1 día (250)','2 días (33)','3–5 días (87)','+5 días (47)'],
+  [336, 250, 33, 87, 47],
+  ['#34C759','#34C75966','#FF950044','#FF9500','#FF3B30']
+);
+</script>
+<!-- ======== LIVE UPDATE MODULE ======== -->
+<style>
+#lu-fab{position:fixed;bottom:22px;left:22px;z-index:600;background:linear-gradient(135deg,#007AFF,#5856D6);color:#fff;border:none;border-radius:50px;padding:11px 20px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,122,255,.4);display:flex;align-items:center;gap:7px;font-family:var(--font);transition:transform .15s,box-shadow .15s}
+#lu-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,122,255,.5)}
+#lu-fab:disabled{opacity:.6;cursor:not-allowed;transform:none}
+#lu-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#lu-modal.open{display:flex}
+#lu-card{background:#fff;border-radius:20px;padding:32px 30px;max-width:480px;width:92%;box-shadow:0 24px 60px rgba(0,0,0,.22);position:relative}
+#lu-close{position:absolute;top:14px;right:16px;border:none;background:none;font-size:22px;color:#8E8E93;cursor:pointer;line-height:1}
+.lu-step{display:none;text-align:center}
+.lu-step.active{display:block}
+.lu-icon{font-size:44px;margin-bottom:14px}
+.lu-title{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px}
+.lu-desc{font-size:13px;color:#3C3C4399;line-height:1.65;margin-bottom:22px}
+.lu-progress{height:5px;background:#F2F2F7;border-radius:4px;overflow:hidden;margin-bottom:8px}
+.lu-bar{height:100%;background:linear-gradient(90deg,#007AFF,#5856D6);border-radius:4px;transition:width .5s ease;width:0%}
+.lu-sub{font-size:11px;color:#8E8E93;text-align:center}
+#lu-changes{background:#F2F2F7;border-radius:12px;padding:14px 16px;font-size:12px;line-height:1.7;color:#3C3C43;text-align:left;margin-bottom:18px;max-height:180px;overflow-y:auto}
+.lu-btn{width:100%;padding:13px;border-radius:12px;border:none;font:700 14px/1 var(--font);cursor:pointer;background:linear-gradient(135deg,#007AFF,#5856D6);color:#fff;box-shadow:0 3px 12px rgba(0,122,255,.3);transition:opacity .15s}
+.lu-btn:hover{opacity:.9}
+.lu-btn.sec{background:var(--fill3);color:var(--lbl2);box-shadow:none;margin-top:8px}
+#lu-toast{position:fixed;bottom:80px;left:22px;z-index:700;background:#1c1c1e;color:#fff;border-radius:12px;padding:10px 16px;font-size:12px;font-weight:600;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+</style>
+
+<button id="lu-fab" onclick="luOpen()">⚡ Actualizar desde Google Sheets</button>
+
+<div id="lu-modal">
+  <div id="lu-card">
+    <button id="lu-close" onclick="luClose()">×</button>
+
+    <!-- Step 0: idle -->
+    <div class="lu-step active" id="lu-s0">
+      <div class="lu-icon">📊</div>
+      <div class="lu-title">Actualizar desde Google Sheets</div>
+      <div class="lu-desc">El reporte se conectará al spreadsheet y procesará las correcciones con IA para actualizar todos los KPIs automáticamente.</div>
+      <button class="lu-btn" onclick="luRun()">🔄 Iniciar actualización</button>
+      <button class="lu-btn sec" onclick="luClose()">Cancelar</button>
+    </div>
+
+    <!-- Step 1: loading -->
+    <div class="lu-step" id="lu-s1">
+      <div class="lu-icon" id="lu-loading-icon">🔄</div>
+      <div class="lu-title" id="lu-loading-title">Procesando...</div>
+      <div class="lu-desc" id="lu-loading-desc">Iniciando conexión…</div>
+      <div class="lu-progress"><div class="lu-bar" id="lu-bar"></div></div>
+      <div class="lu-sub" id="lu-sub">—</div>
+    </div>
+
+    <!-- Step 2: success -->
+    <div class="lu-step" id="lu-s2">
+      <div class="lu-icon">✅</div>
+      <div class="lu-title">Reporte actualizado</div>
+      <div class="lu-desc">Se aplicaron las correcciones del spreadsheet. Cambios detectados:</div>
+      <div id="lu-changes">Analizando cambios…</div>
+      <button class="lu-btn" onclick="luClose()">Cerrar</button>
+    </div>
+
+    <!-- Step 3: error -->
+    <div class="lu-step" id="lu-s3">
+      <div class="lu-icon">❌</div>
+      <div class="lu-title" id="lu-err-title">Error</div>
+      <div class="lu-desc" id="lu-err-desc">Ocurrió un problema al actualizar.</div>
+      <button class="lu-btn" onclick="luRun()">🔄 Reintentar</button>
+      <button class="lu-btn sec" onclick="luClose()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<div id="lu-toast"><span>✅</span><span id="lu-toast-msg">Actualizado</span></div>
+
+<script>
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/1lr_rYTAzBMy-9MCGJXZzbbdLor9wLEeUvS4FjfDTRWo/edit?gid=1319398282#gid=1319398282";
+
+function luOpen(){ document.getElementById('lu-modal').classList.add('open'); luStep(0); }
+function luClose(){ document.getElementById('lu-modal').classList.remove('open'); }
+function luStep(n){ document.querySelectorAll('.lu-step').forEach((s,i)=>s.classList.toggle('active',i===n)); }
+function luBar(pct){ document.getElementById('lu-bar').style.width=pct+'%'; }
+function luMsg(icon,title,desc,sub){
+  document.getElementById('lu-loading-icon').textContent=icon;
+  document.getElementById('lu-loading-title').textContent=title;
+  document.getElementById('lu-loading-desc').textContent=desc;
+  document.getElementById('lu-sub').textContent=sub||'';
+}
+function luError(title,desc){
+  document.getElementById('lu-err-title').textContent=title;
+  document.getElementById('lu-err-desc').textContent=desc;
+  luStep(3);
+}
+
+async function luRun(){
+  luStep(1);
+  luBar(5);
+  luMsg('🌐','Leyendo Google Sheets...','Descargando datos del spreadsheet vía IA...','Esto puede tomar 20-30 segundos');
+
+  try {
+    luBar(20);
+    luMsg('🤖','Procesando con Claude...','Analizando cotizaciones Q1 2026 y detectando correcciones...','Claude lee el spreadsheet y recalcula las métricas');
+
+    const result = await callClaudeWithSheetFetch();
+
+    luBar(80);
+    luMsg('🎨','Aplicando cambios...','Actualizando KPIs en el dashboard...','Casi listo');
+
+    applyKPIs(result.kpis);
+
+    luBar(100);
+    document.getElementById('lu-changes').innerHTML = result.changes || 'Sin cambios detectados.';
+    luStep(2);
+
+    showToast('✅ ' + (result.summary || 'Reporte actualizado'));
+
+  } catch(err) {
+    luError('Error al actualizar', err.message || 'No se pudo procesar el spreadsheet. Revisa la consola para más detalles.');
+    console.error('LU Error:', err);
+  }
+}
+
+async function callClaudeWithSheetFetch() {
+  const SYSTEM = `Eres un analista de datos de Energy Cargo & Solutions. Tu tarea es:
+1. Usar la herramienta web_search para buscar y leer el Google Sheet de cotizaciones
+2. Procesar los datos y calcular KPIs del Q1 2026 (Febrero, Marzo, Abril 2026)
+3. Devolver los resultados en formato JSON exacto
+
+El spreadsheet está en: ${SHEET_URL}
+
+Datos actuales del reporte (para comparar correcciones):
+- Total Q1: 821 cotizaciones
+- Ganadas: 313 (38.1% conversión)
+- No cerradas: 60 (7.3%)
+- Pipeline: 448
+- T. respuesta prom: 1.77d
+- SLA ≤2d: 82.2%
+- Margen promedio: 41.3%
+- Gabriel: 323 cots, 81.4% cierre, 42.7% profit, 93.5% SLA, 0.64d resp
+- Estefanía: 261 cots, 76.8% cierre, 39.7% profit, 82.3% SLA, 1.27d resp
+- Jimena: 170 cots, 91.9% cierre, 41.1% profit, 57.6% SLA, 5.09d resp
+- Inside Sales: 64 cots, 100% cierre, 86% SLA, 1.14d resp
+- Febrero: 197 cots, 82 ganadas, 19 NC, 1.91d resp, 83.6% SLA, 40.5% margen
+- Marzo: 329 cots, 148 ganadas, 19 NC, 1.97d resp, 81.1% SLA, 38.7% margen
+- Abril: 295 cots, 83 ganadas, 22 NC, 1.45d resp, 82.5% SLA, 46.9% margen`;
+
+  const USER = `Lee el Google Sheet en ${SHEET_URL} y extrae los datos del Q1 2026 (Feb-Mar-Abr 2026). Compara con los datos actuales del reporte y devuelve ÚNICAMENTE este JSON (sin texto adicional, sin backticks):
+
+{
+  "kpis": {
+    "totalCotizaciones": 821,
+    "ganadas": 313,
+    "noCerradas": 60,
+    "pipeline": 448,
+    "tRespuesta": "1.77d",
+    "sla2d": "82.2%",
+    "margenProm": "41.3%",
+    "gabrielCots": 323, "gabrielCierre": "81.4%", "gabrielProfit": "42.7%", "gabrielSLA": "93.5%", "gabrielResp": "0.64d",
+    "gabrielCerradas": 97, "gabrielAsigDir": 21, "gabrielNC": 27, "gabrielPipeline": 178,
+    "estefaniaCots": 261, "estefaniaCierre": "76.8%", "estefaniaProfit": "39.7%", "estefaniaSLA": "82.3%", "estefaniaResp": "1.27d",
+    "estefaniaCerradas": 76, "estefaniaAsigDir": 0, "estefaniaNC": 23, "estefaniaPipeline": 162,
+    "jimenaCots": 170, "jimenaCierre": "91.9%", "jimenaProfit": "41.1%", "jimenaSLA": "57.6%", "jimenaResp": "5.09d",
+    "jimenaCerradas": 50, "jimenaAsigDir": 64, "jimenaNC": 10, "jimenaPipeline": 46,
+    "insideCots": 64, "insideCierre": "100%", "insideSLA": "86.0%", "insideResp": "1.14d",
+    "insideCerradas": 5, "insideNC": 0, "insidePipeline": 59,
+    "febCots": 197, "febGanadas": 82, "febNC": 19, "febResp": "1.91d", "febSLA": "83.6%", "febMargen": "40.5%",
+    "marCots": 329, "marGanadas": 148, "marNC": 19, "marResp": "1.97d", "marSLA": "81.1%", "marMargen": "38.7%",
+    "abrCots": 295, "abrGanadas": 83, "abrNC": 22, "abrResp": "1.45d", "abrSLA": "82.5%", "abrMargen": "46.9%"
+  },
+  "changes": "<ul style='padding-left:16px;margin:0'><li>Lista de correcciones aplicadas vs reporte anterior</li></ul>",
+  "summary": "Resumen breve de qué se actualizó"
+}
+
+Si el sheet tiene datos diferentes a los actuales, usa los datos del sheet. Si no puedes acceder al sheet, devuelve los datos actuales sin cambios y anota en changes que el sheet no pudo leerse.`;
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 2000,
+      system: SYSTEM,
+      messages: [{ role: "user", content: USER }],
+      tools: [{ type: "web_search_20250305", name: "web_search" }]
+    })
+  });
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => "");
+    throw new Error(`API error ${response.status}: ${errText.slice(0,200)}`);
+  }
+
+  const data = await response.json();
+  const fullText = data.content.filter(b => b.type === "text").map(b => b.text).join("");
+
+  if (!fullText) throw new Error("La API no devolvió respuesta de texto");
+
+  const clean = fullText.replace(/```json|```/g, "").trim();
+  const start = clean.indexOf("{");
+  const end = clean.lastIndexOf("}");
+  if (start === -1) throw new Error("No se encontró JSON en la respuesta");
+
+  return JSON.parse(clean.slice(start, end + 1));
+}
+
+function applyKPIs(k) {
+  if (!k) return;
+
+  // Helper: update element text safely
+  const set = (sel, val) => {
+    const el = document.querySelector(sel);
+    if (el && val !== undefined && val !== null) { el.textContent = val; flash(el); }
+  };
+  const setAll = (sel, vals) => {
+    document.querySelectorAll(sel).forEach((el,i) => { if(vals[i]!==undefined){el.textContent=vals[i];flash(el);} });
+  };
+
+  function flash(el) {
+    el.style.transition = "color .3s";
+    const orig = el.style.color;
+    el.style.color = "#34C759";
+    setTimeout(() => { el.style.color = orig; }, 1200);
+  }
+
+  // Global KPIs row
+  const gkVals = document.querySelectorAll(".gkpi .gk-val");
+  if(gkVals[0]) { gkVals[0].textContent = k.totalCotizaciones; flash(gkVals[0]); }
+  if(gkVals[1]) { gkVals[1].textContent = k.ganadas; flash(gkVals[1]); }
+  if(gkVals[2]) { gkVals[2].textContent = k.noCerradas; flash(gkVals[2]); }
+  if(gkVals[3]) { gkVals[3].textContent = k.tRespuesta; flash(gkVals[3]); }
+  if(gkVals[4]) { gkVals[4].textContent = k.margenProm; flash(gkVals[4]); }
+  if(gkVals[5]) { gkVals[5].textContent = k.pipeline; flash(gkVals[5]); }
+
+  // Header chips
+  const chips = document.querySelectorAll(".phdr-chip-val");
+  if(chips[1]) { chips[1].textContent = k.tRespuesta; flash(chips[1]); }
+  if(chips[2]) { chips[2].textContent = k.margenProm; flash(chips[2]); }
+
+  // Executive cards - Gabriel
+  const ecGabriel = document.querySelector('.ec:nth-child(1)');
+  if (ecGabriel) {
+    const vals = ecGabriel.querySelectorAll('.ek-val');
+    if(vals[0]) { vals[0].textContent = k.gabrielCierre; flash(vals[0]); }
+    if(vals[1]) { vals[1].textContent = k.gabrielProfit; flash(vals[1]); }
+    if(vals[2]) { vals[2].textContent = k.gabrielSLA; flash(vals[2]); }
+    if(vals[3]) { vals[3].textContent = k.gabrielResp; flash(vals[3]); }
+    const epVals = ecGabriel.querySelectorAll('.ep-val');
+    if(epVals[0]) { epVals[0].textContent = k.gabrielCerradas; flash(epVals[0]); }
+    if(epVals[1]) { epVals[1].textContent = k.gabrielAsigDir; flash(epVals[1]); }
+    if(epVals[2]) { epVals[2].textContent = k.gabrielNC; flash(epVals[2]); }
+    if(epVals[3]) { epVals[3].textContent = k.gabrielPipeline; flash(epVals[3]); }
+    const sub = ecGabriel.querySelector('.ec-sub');
+    if(sub) { sub.textContent = k.gabrielCots + ' cotizaciones · Mayor volumen Q1'; flash(sub); }
+    const rrFill = ecGabriel.querySelector('.rr-fill');
+    if(rrFill && k.gabrielCierre) rrFill.style.width = k.gabrielCierre;
+    const rrPct = ecGabriel.querySelector('.rr-top span:last-child');
+    if(rrPct) { rrPct.textContent = k.gabrielCierre; flash(rrPct); }
+  }
+
+  // Executive cards - Estefanía
+  const ecEste = document.querySelector('.ec:nth-child(2)');
+  if (ecEste) {
+    const vals = ecEste.querySelectorAll('.ek-val');
+    if(vals[0]) { vals[0].textContent = k.estefaniaCierre; flash(vals[0]); }
+    if(vals[1]) { vals[1].textContent = k.estefaniaProfit; flash(vals[1]); }
+    if(vals[2]) { vals[2].textContent = k.estefaniaSLA; flash(vals[2]); }
+    if(vals[3]) { vals[3].textContent = k.estefaniaResp; flash(vals[3]); }
+    const epVals = ecEste.querySelectorAll('.ep-val');
+    if(epVals[0]) { epVals[0].textContent = k.estefaniaCerradas; flash(epVals[0]); }
+    if(epVals[1]) { epVals[1].textContent = k.estefaniaAsigDir; flash(epVals[1]); }
+    if(epVals[2]) { epVals[2].textContent = k.estefaniaNC; flash(epVals[2]); }
+    if(epVals[3]) { epVals[3].textContent = k.estefaniaPipeline; flash(epVals[3]); }
+    const sub = ecEste.querySelector('.ec-sub');
+    if(sub) { sub.textContent = k.estefaniaCots + ' cotizaciones · Vesuvius · exportación'; flash(sub); }
+    const rrFill = ecEste.querySelector('.rr-fill');
+    if(rrFill && k.estefaniaCierre) rrFill.style.width = k.estefaniaCierre;
+    const rrPct = ecEste.querySelector('.rr-top span:last-child');
+    if(rrPct) { rrPct.textContent = k.estefaniaCierre; flash(rrPct); }
+  }
+
+  // Executive cards - Jimena
+  const ecJimena = document.querySelector('.ec:nth-child(3)');
+  if (ecJimena) {
+    const vals = ecJimena.querySelectorAll('.ek-val');
+    if(vals[0]) { vals[0].textContent = k.jimenaCierre; flash(vals[0]); }
+    if(vals[1]) { vals[1].textContent = k.jimenaProfit; flash(vals[1]); }
+    if(vals[2]) { vals[2].textContent = k.jimenaSLA; flash(vals[2]); }
+    if(vals[3]) { vals[3].textContent = k.jimenaResp; flash(vals[3]); }
+    const epVals = ecJimena.querySelectorAll('.ep-val');
+    if(epVals[0]) { epVals[0].textContent = k.jimenaCerradas; flash(epVals[0]); }
+    if(epVals[1]) { epVals[1].textContent = k.jimenaAsigDir; flash(epVals[1]); }
+    if(epVals[2]) { epVals[2].textContent = k.jimenaNC; flash(epVals[2]); }
+    if(epVals[3]) { epVals[3].textContent = k.jimenaPipeline; flash(epVals[3]); }
+    const sub = ecJimena.querySelector('.ec-sub');
+    if(sub) { sub.textContent = k.jimenaCots + ' cotizaciones · Mayor tasa de cierre Q1'; flash(sub); }
+    const rrFill = ecJimena.querySelector('.rr-fill');
+    if(rrFill && k.jimenaCierre) rrFill.style.width = k.jimenaCierre;
+    const rrPct = ecJimena.querySelector('.rr-top span:last-child');
+    if(rrPct) { rrPct.textContent = k.jimenaCierre + ' 🏆'; flash(rrPct); }
+  }
+
+  // Executive cards - Inside Sales
+  const ecInside = document.querySelector('.ec:nth-child(4)');
+  if (ecInside) {
+    const vals = ecInside.querySelectorAll('.ek-val');
+    if(vals[0]) { vals[0].textContent = k.insideCierre; flash(vals[0]); }
+    if(vals[2]) { vals[2].textContent = k.insideSLA; flash(vals[2]); }
+    if(vals[3]) { vals[3].textContent = k.insideResp; flash(vals[3]); }
+    const epVals = ecInside.querySelectorAll('.ep-val');
+    if(epVals[0]) { epVals[0].textContent = k.insideCerradas; flash(epVals[0]); }
+    if(epVals[2]) { epVals[2].textContent = k.insideNC; flash(epVals[2]); }
+    if(epVals[3]) { epVals[3].textContent = k.insidePipeline; flash(epVals[3]); }
+    const sub = ecInside.querySelector('.ec-sub');
+    if(sub) { sub.textContent = k.insideCots + ' cotizaciones · Canal interno directo'; flash(sub); }
+  }
+
+  // Monthly metrics - Febrero
+  const tabFeb = document.getElementById('tab-feb');
+  if (tabFeb) {
+    const mm = tabFeb.querySelectorAll('.mm-val');
+    if(mm[0]) { mm[0].textContent = k.febCots; flash(mm[0]); }
+    if(mm[1]) { mm[1].textContent = k.febGanadas; flash(mm[1]); }
+    if(mm[2]) { mm[2].textContent = k.febNC; flash(mm[2]); }
+    if(mm[3]) { mm[3].textContent = k.febResp; flash(mm[3]); }
+    if(mm[4]) { mm[4].textContent = k.febSLA; flash(mm[4]); }
+    if(mm[5]) { mm[5].textContent = k.febMargen; flash(mm[5]); }
+  }
+
+  // Monthly metrics - Marzo
+  const tabMar = document.getElementById('tab-mar');
+  if (tabMar) {
+    const mm = tabMar.querySelectorAll('.mm-val');
+    if(mm[0]) { mm[0].textContent = k.marCots; flash(mm[0]); }
+    if(mm[1]) { mm[1].textContent = k.marGanadas; flash(mm[1]); }
+    if(mm[2]) { mm[2].textContent = k.marNC; flash(mm[2]); }
+    if(mm[3]) { mm[3].textContent = k.marResp; flash(mm[3]); }
+    if(mm[4]) { mm[4].textContent = k.marSLA; flash(mm[4]); }
+    if(mm[5]) { mm[5].textContent = k.marMargen; flash(mm[5]); }
+  }
+
+  // Monthly metrics - Abril
+  const tabAbr = document.getElementById('tab-abr');
+  if (tabAbr) {
+    const mm = tabAbr.querySelectorAll('.mm-val');
+    if(mm[0]) { mm[0].textContent = k.abrCots; flash(mm[0]); }
+    if(mm[1]) { mm[1].textContent = k.abrGanadas; flash(mm[1]); }
+    if(mm[2]) { mm[2].textContent = k.abrNC; flash(mm[2]); }
+    if(mm[3]) { mm[3].textContent = k.abrResp; flash(mm[3]); }
+    if(mm[4]) { mm[4].textContent = k.abrSLA; flash(mm[4]); }
+    if(mm[5]) { mm[5].textContent = k.abrMargen; flash(mm[5]); }
+  }
+
+  // Add updated badge to header
+  const phdrSub = document.querySelector(".phdr-sub");
+  if (phdrSub && !phdrSub.querySelector('.lu-badge')) {
+    const badge = document.createElement('span');
+    badge.className = 'lu-badge';
+    badge.style.cssText = 'background:rgba(52,199,89,.12);color:#34C759;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;margin-left:8px;display:inline-block';
+    badge.textContent = '⚡ ACTUALIZADO ' + new Date().toLocaleString('es-MX', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).toUpperCase();
+    phdrSub.appendChild(badge);
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('lu-toast');
+  document.getElementById('lu-toast-msg').textContent = msg;
+  t.style.display = 'flex';
+  setTimeout(() => { t.style.display = 'none'; }, 4000);
+}
+</script>
+<!-- ======== END LIVE UPDATE MODULE ======== -->
+
+</body>
+</html>

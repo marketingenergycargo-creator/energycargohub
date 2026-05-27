@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Cargo & Solutions · Hub 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --sys-bg:    #F2F2F7;
+  --sys-bg2:   #FFFFFF;
+  --sys-bg3:   #E5E5EA;
+  --sys-label: #000000;
+  --sys-label2:#3C3C43;
+  --sys-label3:#3C3C4399;
+  --sys-separator:#C6C6C8;
+  --ios-blue:  #007AFF;
+  --ios-green: #34C759;
+  --ios-red:   #FF3B30;
+  --ios-orange:#FF9500;
+  --ios-purple:#AF52DE;
+  --ios-teal:  #5AC8FA;
+  --ios-indigo:#5856D6;
+  --ios-pink:  #FF2D55;
+  --shadow:    0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 14px 36px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.05);
+  --font:      'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:var(--font);
+  background:var(--sys-bg);
+  color:var(--sys-label);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── NAVBAR ─── */
+
+.navbar {
+  background:rgba(242,242,247,0.92);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--sys-separator);
+  position:sticky;
+  top:0;
+  z-index:200;
+}
+
+.navbar-inner {
+  max-width:1440px;
+  margin:0 auto;
+  padding:0 24px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.nav-brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.nav-logo {
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  overflow:hidden;
+  flex-shrink:0;
+  background:rgba(0,122,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.nav-logo img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.nav-title {
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:-0.3px;
+}
+
+.nav-sub {
+  font-size:10px;
+  color:var(--sys-label3);
+  font-weight:500;
+  margin-top:1px;
+}
+
+.nav-right {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.nav-clock {
+  font-size:13px;
+  font-weight:600;
+  color:var(--sys-label2);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.2px;
+  padding:5px 11px;
+  background:var(--sys-bg3);
+  border-radius:8px;
+  border:1px solid var(--sys-separator);
+}
+
+.badge-live {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 12px;
+  border-radius:20px;
+  background:rgba(52,199,89,0.12);
+  color:var(--ios-green);
+  font-size:11px;
+  font-weight:700;
+}
+
+.badge-live::before {
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ios-green);
+  animation:blink 2s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity:1 }
+  50%      { opacity:0.25 }
+}
+
+/* ─── HERO ─── */
+
+.hero-wrap {
+  position:relative;
+  overflow:hidden;
+}
+
+/* Blobs decorativos */
+.hero-bg {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+.hero-blob {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(70px);
+}
+
+.blob-1 {
+  width:520px; height:520px;
+  background:radial-gradient(circle,rgba(0,122,255,0.18) 0%,transparent 70%);
+  top:-240px; left:-80px;
+}
+
+.blob-2 {
+  width:420px; height:420px;
+  background:radial-gradient(circle,rgba(88,86,214,0.14) 0%,transparent 70%);
+  top:-160px; right:40px;
+}
+
+.blob-3 {
+  width:280px; height:280px;
+  background:radial-gradient(circle,rgba(90,200,250,0.10) 0%,transparent 70%);
+  bottom:-60px; right:220px;
+}
+
+/* Patrón de puntos */
+.hero-dots {
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 20%,transparent 100%);
+}
+
+.hero {
+  max-width:1440px;
+  margin:0 auto;
+  padding:64px 24px 44px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+  animation:fadeUp 0.5s ease both;
+}
+
+.hero-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 14px;
+  border-radius:20px;
+  background:rgba(0,122,255,0.09);
+  color:var(--ios-blue);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  border:1px solid rgba(0,122,255,0.16);
+}
+
+.hero h1 {
+  font-size:54px;
+  font-weight:900;
+  letter-spacing:-2.6px;
+  line-height:1.04;
+  margin-bottom:16px;
+}
+
+.hero h1 span {
+  background:linear-gradient(135deg,#007AFF 0%,#5856D6 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub {
+  font-size:15px;
+  color:var(--sys-label3);
+  max-width:500px;
+  margin:0 auto 40px;
+  line-height:1.7;
+  font-weight:400;
+}
+
+/* ─── KPI CARDS ─── */
+
+.stats-grid {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  max-width:980px;
+  margin:0 auto;
+  animation:fadeUp 0.5s 0.1s ease both;
+  flex-wrap:wrap;
+}
+
+.stat-card {
+  flex:1;
+  min-width:168px;
+  background:white;
+  border-radius:16px;
+  padding:15px 17px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(0,0,0,0.05);
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Top accent per card */
+.stat-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2.5px;
+  background:var(--c);
+}
+
+.stat-icon {
+  width:30px; height:30px;
+  border-radius:9px;
+  background:color-mix(in srgb, var(--c) 12%, transparent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:10px;
+}
+
+.stat-icon svg {
+  width:15px; height:15px;
+  stroke:var(--c);
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.stat-val {
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.9px;
+  color:var(--c);
+  line-height:1;
+  margin-bottom:5px;
+}
+
+.stat-lbl {
+  font-size:10px;
+  color:var(--sys-label3);
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+}
+
+/* ─── SECTION ─── */
+
+.modules-section {
+  max-width:1440px;
+  margin:0 auto;
+  padding:48px 24px 64px;
+}
+
+.section-header {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.section-title {
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:-0.4px;
+  white-space:nowrap;
+}
+
+.section-line {
+  flex:1;
+  height:1px;
+  background:linear-gradient(to right,var(--sys-separator),transparent);
+}
+
+.section-count {
+  font-size:11px;
+  color:var(--sys-label3);
+  font-weight:600;
+  background:var(--sys-bg3);
+  padding:3px 10px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+
+/* ─── GRID ─── */
+
+.modules-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin-bottom:13px;
+}
+
+/* ─── MODULE CARD ─── */
+
+.mod-card {
+  background:white;
+  border-radius:18px;
+  padding:22px 22px 52px;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  border:1px solid rgba(0,0,0,0.04);
+  animation:fadeUp 0.45s ease both;
+}
+
+/* Left accent — always visible */
+.mod-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:3px; height:100%;
+  background:var(--accent);
+  opacity:0.5;
+  transition:opacity 0.2s;
+}
+
+/* Hover gradient overlay */
+.mod-card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(140deg,var(--accent),transparent 55%);
+  opacity:0;
+  transition:opacity 0.25s;
+  pointer-events:none;
+}
+
+.mod-card:hover {
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+}
+
+.mod-card:hover::before { opacity:1; }
+.mod-card:hover::after  { opacity:0.04; }
+
+/* Stagger */
+.mod-card:nth-child(1) { animation-delay:0.06s }
+.mod-card:nth-child(2) { animation-delay:0.11s }
+.mod-card:nth-child(3) { animation-delay:0.16s }
+.mod-card:nth-child(4) { animation-delay:0.21s }
+.mod-card:nth-child(5) { animation-delay:0.26s }
+.mod-card:nth-child(6) { animation-delay:0.31s }
+.mod-card:nth-child(7) { animation-delay:0.36s }
+.mod-card:nth-child(8) { animation-delay:0.41s }
+
+.mod-icon {
+  width:44px; height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:13px;
+  background:var(--icon-bg);
+}
+
+.mod-icon svg {
+  width:20px; height:20px;
+  stroke:var(--accent);
+  fill:none;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.mod-num-badge {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:20px; height:20px;
+  border-radius:6px;
+  background:var(--icon-bg);
+  color:var(--accent);
+  font-size:9px;
+  font-weight:800;
+  margin-bottom:8px;
+  letter-spacing:0;
+}
+
+.mod-name {
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:7px;
+  letter-spacing:-0.2px;
+  padding-right:64px;
+}
+
+.mod-desc {
+  font-size:11.5px;
+  color:var(--sys-label3);
+  line-height:1.55;
+}
+
+.mod-tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  position:absolute;
+  bottom:18px;
+  left:22px;
+  right:50px;
+}
+
+.mod-tag {
+  padding:3px 7px;
+  border-radius:5px;
+  font-size:9.5px;
+  font-weight:600;
+  background:var(--icon-bg);
+  color:var(--accent);
+}
+
+.mod-arrow {
+  position:absolute;
+  bottom:16px; right:16px;
+  width:26px; height:26px;
+  border-radius:8px;
+  background:var(--icon-bg);
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity 0.2s, transform 0.2s;
+  font-size:13px;
+}
+
+.mod-card:hover .mod-arrow {
+  opacity:1;
+  transform:translateX(2px);
+}
+
+.mod-status {
+  position:absolute;
+  top:14px; right:14px;
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:9.5px;
+  font-weight:700;
+}
+
+.status-ready {
+  background:rgba(52,199,89,0.12);
+  color:var(--ios-green);
+}
+
+/* ─── Q1 FEATURED ─── */
+
+.featured-wrap {
+  animation:fadeUp 0.45s 0.46s ease both;
+}
+
+.feat-card {
+  background:white;
+  border-radius:18px;
+  padding:26px 30px;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  gap:28px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  border:1px solid rgba(255,214,10,0.22);
+}
+
+/* Gold top gradient */
+.feat-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2.5px;
+  background:linear-gradient(90deg,#FFD60A 0%,#FF9500 60%,transparent 100%);
+}
+
+/* Decorative radial blob */
+.feat-card::after {
+  content:'';
+  position:absolute;
+  top:-80px; right:-80px;
+  width:260px; height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,214,10,0.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.feat-card:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-lg);
+}
+
+.feat-icon {
+  width:60px; height:60px;
+  border-radius:16px;
+  background:rgba(255,214,10,0.11);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:28px;
+  border:1px solid rgba(255,214,10,0.25);
+}
+
+.feat-body { flex:1; }
+
+.feat-eyebrow {
+  display:inline-flex;
+  font-size:10px;
+  font-weight:700;
+  color:#8A6E00;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  background:rgba(255,214,10,0.13);
+  padding:2px 9px;
+  border-radius:5px;
+  margin-bottom:7px;
+}
+
+.feat-name {
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:-0.7px;
+  margin-bottom:6px;
+}
+
+.feat-desc {
+  font-size:13px;
+  color:var(--sys-label3);
+  max-width:600px;
+  line-height:1.55;
+}
+
+.feat-tags {
+  display:flex;
+  gap:5px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.feat-tag {
+  padding:3px 9px;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:600;
+  background:rgba(255,214,10,0.11);
+  color:#8A6E00;
+}
+
+.feat-cta {
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:11px 22px;
+  background:linear-gradient(135deg,#FFD60A 0%,#FF9F0A 100%);
+  color:#5A3900;
+  border-radius:11px;
+  font-size:13px;
+  font-weight:700;
+  transition:transform 0.2s, box-shadow 0.2s;
+  white-space:nowrap;
+  box-shadow:0 4px 14px rgba(255,214,10,0.35);
+  position:relative;
+  z-index:1;
+}
+
+.feat-cta:hover {
+  transform:scale(1.04);
+  box-shadow:0 6px 20px rgba(255,214,10,0.4);
+}
+
+/* ─── FOOTER ─── */
+
+.footer {
+  text-align:center;
+  padding:22px 24px;
+  font-size:12px;
+  color:var(--sys-label3);
+  border-top:1px solid var(--sys-separator);
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media(max-width:1100px) {
+  .modules-grid { grid-template-columns:repeat(3,1fr); }
+}
+
+@media(max-width:780px) {
+  .modules-grid { grid-template-columns:repeat(2,1fr); }
+  .hero h1 { font-size:38px; letter-spacing:-1.8px; }
+  .stats-grid { gap:8px; }
+  .feat-card { flex-direction:column; gap:18px; }
+  .feat-cta { width:100%; justify-content:center; }
+  .nav-clock { display:none; }
+}
+
+@media(max-width:480px) {
+  .modules-grid { grid-template-columns:1fr; }
+  .stat-card { min-width:145px; }
+}
+
+/* ─── ANIMATION ─── */
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+</style>
+
+
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="navbar-inner">
+
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <img src="https://energycargo.com.mx/logo.png" alt="Energy Cargo"
+             onerror="this.style.display='none'">
+      </div>
+      <div>
+        <div class="nav-title">Energy Cargo &amp; Solutions</div>
+        <div class="nav-sub">Hub Operativo de Cotizaciones · 2026</div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-clock" id="navClock">--:--:--</div>
+      <div class="badge-live">EN VIVO</div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero-wrap">
+
+  <div class="hero-bg">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="hero-blob blob-3"></div>
+    <div class="hero-dots"></div>
+  </div>
+
+  <div class="hero">
+
+    <div class="hero-tag">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>
+        <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/>
+        <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/>
+        <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/>
+        <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/>
+      </svg>
+      Dashboard Operativo 2026
+    </div>
+
+    <h1>Hub de Control de<br><span>Cotizaciones</span></h1>
+
+    <p class="hero-sub">
+      Plataforma centralizada de seguimiento,
+      análisis y gestión de cotizaciones logísticas.
+    </p>
+
+    <!-- ── KPI CARDS ── -->
+    <div class="stats-grid">
+
+      <div class="stat-card" style="--c:var(--ios-blue)">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="stat-val" id="kpiTotal">—</div>
+        <div class="stat-lbl">Total Cotizaciones</div>
+      </div>
+
+      <div class="stat-card" style="--c:var(--ios-green)">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="stat-val" id="kpiCloseRate">—</div>
+        <div class="stat-lbl">Tasa de Cierre</div>
+      </div>
+
+      <div class="stat-card" style="--c:var(--ios-purple)">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="stat-val" id="kpiProfit">—</div>
+        <div class="stat-lbl">Profit Total</div>
+      </div>
+
+      <div class="stat-card" style="--c:var(--ios-orange)">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="stat-val" id="kpiPending">—</div>
+        <div class="stat-lbl">Sin Respuesta &gt;24h</div>
+      </div>
+
+      <div class="stat-card" style="--c:var(--ios-red)">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="stat-val" id="kpiNoFeedback">—</div>
+        <div class="stat-lbl">Sin Feedback</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── MODULES ── -->
+<div class="modules-section">
+
+  <div class="section-header">
+    <span class="section-title">Módulos del Sistema</span>
+    <div class="section-line"></div>
+    <span class="section-count">8 módulos</span>
+  </div>
+
+  <div class="modules-grid">
+
+    <!-- M01 -->
+    <a class="mod-card" href="modulo1.html"
+       style="--accent:#007AFF;--icon-bg:rgba(0,122,255,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6"  y1="20" x2="6"  y2="14"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">01</div>
+      <div class="mod-name">Resumen General</div>
+      <div class="mod-desc">KPIs totales, pipeline completo, tasa de cierre y cotizaciones pendientes.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">KPIs</span>
+        <span class="mod-tag">Pipeline</span>
+        <span class="mod-tag">Profit</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M02 -->
+    <a class="mod-card" href="modulo2.html"
+       style="--accent:#AF52DE;--icon-bg:rgba(175,82,222,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">02</div>
+      <div class="mod-name">Dashboard por Ejecutivo</div>
+      <div class="mod-desc">Rendimiento individual por ejecutivo, clientes y tiempo de respuesta.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">CS</span>
+        <span class="mod-tag">Métricas</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M03 -->
+    <a class="mod-card" href="modulo3.html"
+       style="--accent:#34C759;--icon-bg:rgba(52,199,89,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+          <polyline points="17 6 23 6 23 12"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">03</div>
+      <div class="mod-name">Dashboard Comercial</div>
+      <div class="mod-desc">Revenue pipeline, conversión comercial y comparativas de período.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Ventas</span>
+        <span class="mod-tag">Revenue</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M04 -->
+    <a class="mod-card" href="modulo4.html"
+       style="--accent:#FF9500;--icon-bg:rgba(255,149,0,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="3"  y="3"  width="7" height="7"/>
+          <rect x="14" y="3"  width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3"  y="14" width="7" height="7"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">04</div>
+      <div class="mod-name">Clientes + Servicios</div>
+      <div class="mod-desc">Ranking de clientes, análisis de servicios y segmentación.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Clientes</span>
+        <span class="mod-tag">LCL</span>
+        <span class="mod-tag">FCL</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M05 -->
+    <a class="mod-card" href="modulo5.html"
+       style="--accent:#5AC8FA;--icon-bg:rgba(90,200,250,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">05</div>
+      <div class="mod-name">Rutas + Proveedores</div>
+      <div class="mod-desc">Origen-destino, proveedores y frecuencia de uso por ruta.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Rutas</span>
+        <span class="mod-tag">Proveedores</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M06 -->
+    <a class="mod-card" href="modulo6.html"
+       style="--accent:#FF3B30;--icon-bg:rgba(255,59,48,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+          <polyline points="17 18 23 18 23 12"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">06</div>
+      <div class="mod-name">Análisis de Pérdidas</div>
+      <div class="mod-desc">Motivos de pérdida, patrones y análisis comercial profundo.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Pérdidas</span>
+        <span class="mod-tag">Motivos</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M07 -->
+    <a class="mod-card" href="modulo7.html"
+       style="--accent:#5856D6;--icon-bg:rgba(88,86,214,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">07</div>
+      <div class="mod-name">Control Customer Service</div>
+      <div class="mod-desc">SLA, alertas y seguimiento operativo en tiempo real.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">SLA</span>
+        <span class="mod-tag">Alertas</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <!-- M08 -->
+    <a class="mod-card" href="modulo8.html"
+       style="--accent:#FF2D55;--icon-bg:rgba(255,45,85,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div class="mod-num-badge">08</div>
+      <div class="mod-name">Tendencias</div>
+      <div class="mod-desc">Evolución histórica, proyecciones y comparativas YoY.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">YoY</span>
+        <span class="mod-tag">Forecast</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- ── Q1 FEATURED ── -->
+  <div class="featured-wrap">
+    <a class="feat-card" href="Q1.html" target="_blank">
+
+      <div class="feat-icon">🏆</div>
+
+      <div class="feat-body">
+        <div class="feat-eyebrow">Reporte Trimestral</div>
+        <div class="feat-name">Cierre Q1 · Enero – Marzo 2026</div>
+        <div class="feat-desc">
+          Resultados consolidados del primer trimestre: profit, cierres,
+          ejecutivos y tendencias completas del período.
+        </div>
+        <div class="feat-tags">
+          <span class="feat-tag">Q1 2026</span>
+          <span class="feat-tag">Trimestral</span>
+          <span class="feat-tag">Consolidado</span>
+        </div>
+      </div>
+
+      <div class="feat-cta">Ver Reporte Q1 →</div>
+
+    </a>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <strong>Energy Cargo &amp; Solutions</strong>
+  · Dashboard Operativo 2026
+  · Datos: REPORTE_COT_2026.xlsm
+  · Pablo Castillo Marketing
+</div>
+
+<script>
+/* ── RELOJ EN VIVO ── */
+function updateClock(){
+  const now = new Date();
+  const hh  = String(now.getHours()).padStart(2,'0');
+  const mm  = String(now.getMinutes()).padStart(2,'0');
+  const ss  = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('navClock').textContent = `${hh}:${mm}:${ss}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+<script type="module">
+import { getKPIs } from './js/api.js';
+
+async function cargarDashboard() {
+  const ids = ['kpiTotal','kpiCloseRate','kpiProfit','kpiPending','kpiNoFeedback'];
+
+  try {
+    const kpi = await getKPIs();
+
+    document.getElementById('kpiTotal').textContent =
+      (kpi.totalCotizaciones || 0).toLocaleString();
+
+    document.getElementById('kpiCloseRate').textContent =
+      (kpi.tasaCierre || 0) + '%';
+
+    document.getElementById('kpiProfit').textContent =
+      '$' + Number(kpi.profitTotal || 0).toLocaleString('en-US', { maximumFractionDigits: 0 });
+
+    // Campo correcto: sinRespuesta (cotizaciones NO cerradas >24h sin respuesta)
+    document.getElementById('kpiPending').textContent =
+      kpi.sinRespuesta ?? 0;
+
+    document.getElementById('kpiNoFeedback').textContent =
+      kpi.sinFeedback ?? 0;
+
+  } catch(e) {
+    console.error('[Dashboard KPIs]', e);
+    ids.forEach(id => {
+      document.getElementById(id).textContent = '—';
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', cargarDashboard);
+</script>
+
+</div>
+</body>
+</html>

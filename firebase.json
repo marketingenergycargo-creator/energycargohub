@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "backend/**",
+      "api/vendor/**",
+      "api/cotizaciones.csv",
+      "api/cotizaciones.xlsm"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|html)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache" }
+        ]
+      }
+    ]
+  }
+}
