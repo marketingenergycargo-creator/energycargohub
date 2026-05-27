@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 06 · Análisis de Pérdidas · Energy 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F2F7;--bg2:#FFF;--sep:#C6C6C8;--fill:#78788033;--fill2:#78788029;--fill3:#7676801F;
+  --lbl:#000;--lbl2:#3C3C43;--lbl3:#3C3C4399;
+  --blue:#007AFF;--green:#34C759;--red:#FF3B30;--orange:#FF9500;
+  --yellow:#FFCC00;--purple:#AF52DE;--teal:#5AC8FA;--indigo:#5856D6;--pink:#FF2D55;
+  --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg:0 16px 40px rgba(0,0,0,.13),0 3px 10px rgba(0,0,0,.06);
+  --r:12px;--rl:16px;--rxl:20px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--lbl);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{background:rgba(242,242,247,.93);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--sep);position:sticky;top:0;z-index:300}
+.nav-in{max-width:1440px;margin:0 auto;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:32px;height:32px;background:linear-gradient(135deg,#007AFF,#5856D6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 8px rgba(0,122,255,.35);flex-shrink:0}
+.nav-title{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.nav-sub{font-size:11px;color:var(--lbl3)}
+.nav-acts{display:flex;align-items:center;gap:8px}
+.nbtn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;border:none;font:600 12px/1 var(--font);cursor:pointer;text-decoration:none;transition:all .15s}
+.nbtn-home{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(0,122,255,.3)}
+.nbtn-home:hover{background:#0066DD}
+.nbtn-ghost{background:var(--fill2);color:var(--red)}
+.nbtn-ghost:hover{background:var(--fill)}
+.badge-mod{padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700;background:rgba(255,59,48,.12);color:var(--red)}
+
+/* FILTERS */
+.fbar{background:rgba(242,242,247,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--sep);padding:9px 20px;position:sticky;top:52px;z-index:200}
+.fin{max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.fg{display:flex;align-items:center;gap:5px;background:var(--fill3);border-radius:10px;padding:3px 5px}
+.fl{font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--lbl3);padding-left:3px;white-space:nowrap}
+.fs{appearance:none;-webkit-appearance:none;border:none;background:transparent;font:500 12px/1 var(--font);color:var(--lbl);cursor:pointer;outline:none;padding:4px 22px 4px 6px;border-radius:7px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%233C3C43' opacity='.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 5px center;background-size:8px;min-width:88px}
+.fs.act{color:var(--red);font-weight:700}
+.freset{padding:5px 12px;border-radius:8px;border:none;background:transparent;font:600 11px/1 var(--font);color:var(--red);cursor:pointer;transition:background .12s}
+.freset:hover{background:rgba(255,59,48,.08)}
+.fcount{padding:4px 10px;border-radius:8px;font:700 11px/1 var(--font);background:rgba(255,59,48,.12);color:var(--red);white-space:nowrap;margin-left:auto}
+
+/* CONTENT */
+.wrap{max-width:1440px;margin:0 auto;padding:24px 20px 56px}
+.phdr{margin-bottom:22px}
+.ptag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:rgba(255,59,48,.1);color:var(--red);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.ptitle{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:3px}
+.psub{font-size:13px;color:var(--lbl3)}
+.sec-lbl{font-size:13px;font-weight:700;letter-spacing:-.2px;margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:22px}
+.ks{background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--shadow);text-align:center;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;border:1.5px solid transparent}
+.ks:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.ks:active{transform:scale(.97)}
+.ks-val{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1}
+.ks-lbl{font-size:10px;color:var(--lbl3);font-weight:500;margin-top:4px}
+.ks-sub{font-size:9px;font-weight:600;margin-top:2px;opacity:.65}
+
+/* MOTIVOS GRID */
+.motivos-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:22px}
+.motivo-card{background:#fff;border-radius:var(--rl);padding:16px 12px;cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;border:2px solid transparent;position:relative;overflow:hidden;text-align:center;box-shadow:var(--shadow)}
+.motivo-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--mc)}
+.motivo-card:active{transform:scale(.97)}
+.motivo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--mc)}
+.motivo-icon{font-size:28px;margin-bottom:8px;line-height:1}
+.motivo-name{font-size:11px;font-weight:700;color:var(--mc);margin-bottom:8px;line-height:1.3}
+.motivo-val{font-size:28px;font-weight:800;letter-spacing:-1.5px;color:var(--mc);line-height:1}
+.motivo-pct{font-size:10px;color:var(--lbl3);font-weight:600;margin-top:3px}
+.motivo-bar{margin-top:8px;height:4px;background:var(--fill3);border-radius:2px;overflow:hidden}
+.motivo-bar-fill{height:100%;border-radius:2px;background:var(--mc);transition:width .7s cubic-bezier(.34,1.56,.64,1)}
+.notif-dot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--mc);opacity:.6}
+
+/* ALERT TRIGGER PANEL */
+.alert-panel{background:#fff;border-radius:var(--rxl);box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px;border-left:4px solid var(--red)}
+.alert-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(135deg,#FFF5F5,#FFFAFA);border-bottom:1px solid rgba(255,59,48,.15);flex-wrap:wrap;gap:10px}
+.alert-title{font-size:15px;font-weight:700;color:#7A0000;display:flex;align-items:center;gap:8px}
+.alert-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.alert-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;border:none;font:700 12px/1 var(--font);cursor:pointer;transition:all .15s}
+.alert-btn-red{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(255,59,48,.3)}
+.alert-btn-red:hover{background:#CC2A20}
+.alert-btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(255,149,0,.3)}
+.alert-btn-orange:hover{background:#CC7700}
+.alert-btn-yellow{background:var(--yellow);color:#7A6000;box-shadow:0 2px 8px rgba(255,204,0,.3)}
+.alert-btn-yellow:hover{background:#DDAA00}
+.alert-filters{display:flex;gap:8px;align-items:center;padding:10px 20px;background:#FAFAFA;border-bottom:1px solid var(--sep);flex-wrap:wrap}
+.alert-fl{font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--lbl3);white-space:nowrap}
+.alert-fs{appearance:none;-webkit-appearance:none;border:1.5px solid var(--sep);background:#fff;font:500 11px/1 var(--font);color:var(--lbl);cursor:pointer;outline:none;padding:5px 20px 5px 8px;border-radius:8px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%233C3C43' opacity='.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;background-size:8px;min-width:100px}
+.alert-fs:focus{border-color:var(--red)}
+.alert-body{overflow-x:auto;max-height:360px;overflow-y:auto}
+.alert-tbl{width:100%;border-collapse:collapse;font-size:11.5px;min-width:1100px}
+.alert-tbl thead th{background:#FFF5F5;padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:#7A0000;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid rgba(255,59,48,.2);border-right:1px solid rgba(255,59,48,.08);white-space:nowrap;position:sticky;top:0;z-index:5}
+.alert-tbl thead th:last-child{border-right:none}
+.alert-tbl tbody tr{border-bottom:1px solid #FFF0F0;transition:background .06s;cursor:pointer}
+.alert-tbl tbody tr:hover{background:#FFF5F5}
+.alert-tbl tbody td{padding:8px 12px;color:var(--lbl2);white-space:nowrap;border-right:1px solid rgba(255,59,48,.06)}
+.alert-tbl tbody td:last-child{border-right:none}
+.alert-empty{text-align:center;padding:36px;color:var(--lbl3);font-size:13px}
+
+/* MOTIVO BADGE */
+.motivo-bdg{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700}
+
+/* TABLE SECTION */
+.table-section{background:#fff;border-radius:var(--rxl);box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px}
+.tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--sep);flex-wrap:wrap;gap:10px}
+.tbl-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.tbl-search{border:1.5px solid var(--sep);border-radius:10px;padding:7px 12px;font-size:12px;font-family:var(--font);outline:none;background:var(--fill3);color:var(--lbl);width:220px;transition:border .12s}
+.tbl-search:focus{border-color:var(--red);background:#fff}
+.tbl-wrap{overflow-x:auto;max-height:440px;overflow-y:auto}
+.data-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.data-tbl thead th{background:#FFF5F5;padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:#7A0000;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid rgba(255,59,48,.2);border-right:1px solid rgba(255,59,48,.1);white-space:nowrap;position:sticky;top:0;z-index:5;cursor:pointer;user-select:none}
+.data-tbl thead th:last-child{border-right:none}
+.data-tbl thead th:hover{background:#FFE8E8}
+.data-tbl tbody tr{border-bottom:1px solid #FFF0F0;transition:background .06s;cursor:pointer}
+.data-tbl tbody tr:nth-child(even){background:#FFFAFA}
+.data-tbl tbody tr:hover{background:#FFF5F5 !important}
+.data-tbl tbody td{padding:8px 12px;color:var(--lbl2);white-space:nowrap;border-right:1px solid rgba(255,59,48,.06)}
+.data-tbl tbody td:last-child{border-right:none}
+.tbl-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-top:1px solid var(--sep);font-size:12px;color:var(--lbl3)}
+.pager{display:flex;align-items:center;gap:6px}
+.pgbtn{padding:5px 10px;border-radius:7px;border:none;background:var(--fill3);font:600 11px/1 var(--font);cursor:pointer;color:var(--lbl2);transition:background .12s}
+.pgbtn:hover:not(:disabled){background:var(--fill)}
+.pgbtn:disabled{opacity:.35;cursor:default}
+.pginfo{font:500 11px/1 var(--font);padding:0 4px}
+
+/* CLIENT TABLE */
+.client-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.client-card{background:#fff;border-radius:var(--rl);padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;border:2px solid transparent;position:relative;overflow:hidden}
+.client-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(255,59,48,.3)}
+.client-card:active{transform:scale(.97)}
+.client-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--orange))}
+.cc-name{font-size:14px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;color:var(--red)}
+.cc-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.cc-k{background:var(--bg);border-radius:7px;padding:7px;text-align:center}
+.cc-k-val{font-size:16px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.cc-k-lbl{font-size:8px;color:var(--lbl3);font-weight:600;text-transform:uppercase;margin-top:2px}
+.cc-motivos{display:flex;gap:4px;flex-wrap:wrap}
+
+/* CHART */
+.chart-section{background:#fff;border-radius:var(--rxl);box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px}
+.chart-hdr{padding:14px 20px;border-bottom:1px solid var(--sep);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.chart-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.chart-tabs{display:flex;gap:6px}
+.ctab{padding:5px 12px;border-radius:8px;border:none;font:600 11px/1 var(--font);cursor:pointer;background:var(--fill3);color:var(--lbl3);transition:all .15s}
+.ctab.act{background:rgba(255,59,48,.12);color:var(--red);border:1px solid rgba(255,59,48,.25)}
+.chart-body{padding:20px 24px}
+.chart-wrap{position:relative;height:260px}
+.chart-legend{display:flex;gap:14px;flex-wrap:wrap;padding:0 24px 14px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* badges */
+.bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700}
+.bdg-g{background:rgba(52,199,89,.12);color:var(--green)}
+.bdg-r{background:rgba(255,59,48,.12);color:var(--red)}
+.bdg-o{background:rgba(255,149,0,.12);color:var(--orange)}
+.bdg-b{background:rgba(0,122,255,.12);color:var(--blue)}
+.bdg-p{background:rgba(175,82,222,.12);color:var(--purple)}
+.bar-w{display:flex;align-items:center;gap:6px}
+.bar-t{flex:1;height:6px;background:var(--fill3);border-radius:3px;overflow:hidden;min-width:40px}
+.bar-f{height:100%;border-radius:3px;background:var(--c)}
+.bar-p{font-size:10px;font-weight:700;white-space:nowrap;min-width:28px;text-align:right}
+.rank-med{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:800}
+.rm-1{background:#FFD700;color:#5C4000}.rm-2{background:#E0E0E0;color:#333}.rm-3{background:#F0C090;color:#5C3000}.rm-n{background:var(--fill3);color:var(--lbl3)}
+
+/* MODAL */
+.moverlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.46);backdrop-filter:blur(7px) saturate(150%);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .22s}
+.moverlay.show{opacity:1;pointer-events:all}
+.mbox{background:#fff;border-radius:22px;box-shadow:0 32px 80px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);width:100%;max-width:1200px;max-height:90vh;display:flex;flex-direction:column;transform:scale(.94) translateY(12px);transition:transform .22s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.moverlay.show .mbox{transform:scale(1) translateY(0)}
+.mhdr{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px 14px;border-bottom:1px solid var(--sep);flex-shrink:0;gap:12px}
+.mhdr-left{flex:1;min-width:0}
+.mhdr-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:8px}
+.mtitle{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
+.msubt{font-size:13px;color:var(--lbl3);margin-bottom:8px}
+.mchips{display:flex;gap:7px;flex-wrap:wrap}
+.mchip{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700}
+.mkpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 24px;border-bottom:1px solid var(--sep);flex-shrink:0}
+.mkc{border-radius:12px;padding:12px 14px;background:var(--kbg)}
+.mkv{font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--kc)}
+.mkl{font-size:10px;color:var(--lbl3);font-weight:600;margin-top:3px;text-transform:uppercase}
+.mks{font-size:11px;font-weight:600;margin-top:4px;color:var(--kc);opacity:.75}
+.msearch-bar{padding:11px 24px;border-bottom:1px solid var(--sep);flex-shrink:0;display:flex;align-items:center;gap:10px}
+.msearch{flex:1;border:1.5px solid var(--sep);border-radius:10px;padding:8px 14px;font-size:13px;font-family:var(--font);outline:none;background:var(--fill3);color:var(--lbl);transition:border-color .12s}
+.msearch:focus{border-color:var(--red);background:#fff}
+.mcount{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(255,59,48,.12);color:var(--red);white-space:nowrap}
+.mbody{flex:1;overflow:auto}
+.mtbl{width:100%;border-collapse:collapse;font-size:11.5px;min-width:1100px}
+.mtbl thead th{background:#FFF5F5;padding:8px 11px;text-align:left;font-size:10px;font-weight:700;color:#7A0000;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid rgba(255,59,48,.2);border-right:1px solid rgba(255,59,48,.08);white-space:nowrap;position:sticky;top:0;z-index:10}
+.mtbl thead th:last-child{border-right:none}
+.mtbl tbody tr{border-bottom:1px solid #FFF0F0;transition:background .06s}
+.mtbl tbody tr:nth-child(even){background:#FFFAFA}
+.mtbl tbody tr:hover{background:#FFF5F5 !important}
+.mtbl tbody td{padding:7px 11px;color:var(--lbl2);white-space:nowrap;border-right:1px solid rgba(255,59,48,.06)}
+.mtbl tbody td:last-child{border-right:none}
+.mempty{text-align:center;padding:48px;color:var(--lbl3)}
+.mfooter{padding:12px 24px;border-top:1px solid var(--sep);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--lbl3);flex-shrink:0}
+.mexport{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;border:none;font:600 12px/1 var(--font);background:var(--red);color:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(255,59,48,.3);transition:all .15s}
+.mexport:hover{background:#CC2A20}
+.mclose{width:32px;height:32px;border-radius:50%;background:var(--fill3);border:none;font-size:18px;cursor:pointer;color:var(--lbl3);display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.mclose:hover{background:var(--fill);color:var(--lbl)}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:600;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.18),0 2px 8px rgba(0,0,0,.08);padding:14px 18px;max-width:380px;animation:toastIn .3s cubic-bezier(.34,1.56,.64,1) both;border-left:4px solid var(--tc);pointer-events:all;position:relative}
+@keyframes toastIn{from{opacity:0;transform:translateX(30px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
+.toast-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.toast-title{font-size:13px;font-weight:800;color:var(--lbl)}
+.toast-body{font-size:11px;color:var(--lbl3);line-height:1.55}
+.toast-footer{font-size:10px;font-weight:600;margin-top:6px;color:var(--lbl3)}
+.toast-close{background:none;border:none;cursor:pointer;font-size:14px;color:var(--lbl3);padding:0;line-height:1;flex-shrink:0}
+.toast-alerta{animation:toastIn .3s cubic-bezier(.34,1.56,.64,1) both}
+
+/* MOTIVO SELECTOR */
+.motivo-select-wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.motivo-pill-btn{padding:5px 12px;border-radius:20px;border:1.5px solid transparent;font:600 11px/1 var(--font);cursor:pointer;transition:all .15s;background:var(--fill3);color:var(--lbl3)}
+.motivo-pill-btn.act{color:#fff;border-color:transparent}
+.motivo-pill-btn:hover:not(.act){background:var(--fill)}
+
+/* animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.kpi-strip,.motivos-grid,.alert-panel,.client-grid,.table-section,.chart-section{animation:fadeUp .45s ease both}
+.motivos-grid{animation-delay:.04s}.alert-panel{animation-delay:.08s}
+.client-grid{animation-delay:.10s}.table-section{animation-delay:.14s}.chart-section{animation-delay:.18s}
+.motivo-card{animation:fadeUp .4s ease both}
+.motivo-card:nth-child(1){animation-delay:.06s}.motivo-card:nth-child(2){animation-delay:.10s}
+.motivo-card:nth-child(3){animation-delay:.14s}.motivo-card:nth-child(4){animation-delay:.18s}
+.motivo-card:nth-child(5){animation-delay:.22s}.motivo-card:nth-child(6){animation-delay:.26s}
+.motivo-card:nth-child(7){animation-delay:.30s}
+
+@media(max-width:1200px){.motivos-grid{grid-template-columns:repeat(4,1fr)}.client-grid{grid-template-columns:repeat(2,1fr)}.kpi-strip{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.motivos-grid{grid-template-columns:repeat(2,1fr)}.client-grid{grid-template-columns:1fr}.kpi-strip{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <div class="nav-logo">📦</div>
+      <div>
+        <div class="nav-title">Energy Cargo &amp; Solutions</div>
+        <div class="nav-sub">Módulo 06 · Análisis de Pérdidas</div>
+      </div>
+    </div>
+    <div class="nav-acts">
+      <span class="badge-mod">📉 M06</span>
+      <button class="nbtn nbtn-ghost" onclick="exportCSV()">⬇ CSV</button>
+      <a class="nbtn nbtn-home" href="index.html">⬅ Inicio</a>
+    </div>
+  </div>
+</nav>
+
+<!-- FILTERS -->
+<div class="fbar">
+  <div class="fin">
+    <div class="fg">
+      <span class="fl">Semana</span>
+      <select class="fs" id="fSem" onchange="applyF()"><option value="">Todas</option></select>
+    </div>
+    <div class="fg">
+      <span class="fl">Mes</span>
+      <select class="fs" id="fMes" onchange="applyF()">
+        <option value="">Todos</option>
+        <!-- Meses poblados dinámicamente desde Google Sheets -->
+</select>
+    </div>
+    <div class="fg">
+      <span class="fl">Motivo</span>
+      <select class="fs" id="fMotivo" onchange="applyF()">
+        <option value="">Todos</option>
+        <option>PRECIO</option>
+        <option>TIEMPO</option>
+        <option>SEGUIMIENTO</option>
+        <option value="CLIENTE NO RESPONDIÓ">Cliente No Respondió</option>
+        <option>COMPETENCIA</option>
+        <option value="NO VIABLE">No Viable</option>
+        <option value="SIN MOTIVO">Sin Motivo</option>
+      </select>
+    </div>
+    <div class="fg">
+      <span class="fl">Vendedor</span>
+      <select class="fs" id="fVend" onchange="applyF()">
+        <option value="">Todos</option>
+        <!-- Vendedores poblados dinámicamente desde Google Sheets -->
+</select>
+    </div>
+    <div class="fg">
+      <span class="fl">Ejecutivo CS</span>
+      <select class="fs" id="fEj" onchange="applyF()">
+        <option value="">Todos</option>
+        <!-- Ejecutivos poblados dinámicamente desde Google Sheets -->
+</select>
+    </div>
+    <div class="fg">
+      <span class="fl">Servicio</span>
+      <select class="fs" id="fServ" onchange="applyF()">
+        <option value="">Todos</option>
+        <!-- Servicios poblados dinámicamente desde Google Sheets -->
+<option>TERRESTRE</option><option>DESPACHO</option>
+      </select>
+    </div>
+    <div class="fg">
+      <span class="fl">Tipo Cuenta</span>
+      <select class="fs" id="fTipo" onchange="applyF()">
+        <option value="">Todos</option>
+        <option value="CLIENTE">Cliente</option>
+        <option value="AGENTE">Agente</option>
+        <option value="PROSPECTO">Prospecto</option>
+      </select>
+    </div>
+    <div class="fg">
+      <span class="fl">Estatus Pérdida</span>
+      <select class="fs" id="fEst" onchange="applyF()">
+        <option value="">Todas</option>
+        <option value="ABIERTA">No Cerrada ❌</option>
+        <option value="SIN FEEDBACK">Sin Feedback ⏳</option>
+      </select>
+    </div>
+    <button class="freset" onclick="resetF()">✕ Limpiar</button>
+    <span class="fcount" id="fcount">74 pérdidas</span>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div class="phdr">
+    <div class="ptag">📉 Módulo 06</div>
+    <div class="ptitle">Análisis de Pérdidas</div>
+    <div class="psub">Motivos, patrones por cliente, ejecutivo y servicio · Alertas automáticas a vendedores · Clic en cualquier dato para ver detalle</div>
+  </div>
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip">
+    <div class="ks" onclick="openModal('all')" style="border-color:#FF3B3020">
+      <div class="ks-val" style="color:var(--red)" id="kTotal">—</div>
+      <div class="ks-lbl">Total Pérdidas</div>
+      <div class="ks-sub" id="kTotalSub"></div>
+    </div>
+    <div class="ks" onclick="openModal('abierta')" style="border-color:#FF3B3020">
+      <div class="ks-val" style="color:var(--red)" id="kAbierta">—</div>
+      <div class="ks-lbl">No Cerradas</div>
+    </div>
+    <div class="ks" onclick="openModal('sinfb')" style="border-color:#FF950020">
+      <div class="ks-val" style="color:var(--orange)" id="kSinFb">—</div>
+      <div class="ks-lbl">Sin Feedback</div>
+    </div>
+    <div class="ks" onclick="openModal('precio')" style="border-color:#FF3B3020">
+      <div class="ks-val" style="color:var(--red)" id="kPrecio">—</div>
+      <div class="ks-lbl">💰 Por Precio</div>
+    </div>
+    <div class="ks" onclick="openModal('cliNoResp')" style="border-color:#5856D620">
+      <div class="ks-val" style="color:var(--indigo)" id="kCliNoResp">—</div>
+      <div class="ks-lbl">🔇 Cliente No Resp.</div>
+    </div>
+    <div class="ks" onclick="openModal('all')" style="border-color:#34C75920">
+      <div class="ks-val" style="color:var(--green)" id="kTasaPerd">—</div>
+      <div class="ks-lbl">% Pérdida Global</div>
+    </div>
+  </div>
+
+  <!-- MOTIVOS -->
+  <div class="sec-lbl">🎯 Clasificación por Motivo de Pérdida <span style="font-weight:400;color:var(--lbl3);font-size:12px">· Clic para ver cotizaciones de ese motivo</span></div>
+  <div class="motivos-grid" id="motivosGrid"></div>
+
+  <!-- ALERT TRIGGER PANEL -->
+  <div class="alert-panel">
+    <div class="alert-hdr">
+      <div class="alert-title">
+        🚨 Panel de Alertas — Notificación a Vendedores
+        <span style="font-size:11px;font-weight:500;color:#9A0000">Trigger automático por motivo y tiempo</span>
+      </div>
+      <div class="alert-actions">
+        <button class="alert-btn alert-btn-yellow" onclick="sendAlerts('SEGUIMIENTO','⚠️ Alerta 1 Semana')">⚠️ Alertas (1 sem.) · Llamada</button>
+        <button class="alert-btn alert-btn-orange" onclick="sendAlerts('TIEMPO','🔴 Crítico 2 Semanas')">🔴 Crítico (2 sem.) · Visita</button>
+        <button class="alert-btn alert-btn-red" onclick="sendAlerts('ALL','🚨 Todas las Pérdidas')">🚨 Enviar Todas las Alertas</button>
+      </div>
+    </div>
+    <div class="alert-filters">
+      <span class="alert-fl">Filtrar por:</span>
+      <select class="alert-fs" id="alertVend" onchange="renderAlertTable()">
+        <option value="">Todos los Vendedores</option>
+        <!-- Vendedores poblados dinámicamente -->
+      </select>
+      <select class="alert-fs" id="alertMotivo" onchange="renderAlertTable()">
+        <option value="">Todos los Motivos</option>
+        <option>PRECIO</option><option>TIEMPO</option><option>SEGUIMIENTO</option>
+        <option value="CLIENTE NO RESPONDIÓ">Cliente No Respondió</option>
+        <option>COMPETENCIA</option><option value="NO VIABLE">No Viable</option>
+        <option value="SIN MOTIVO">Sin Motivo</option>
+      </select>
+      <select class="alert-fs" id="alertEj" onchange="renderAlertTable()">
+        <option value="">Todos los Ejecutivos</option>
+        <!-- Ejecutivos poblados dinámicamente -->
+      </select>
+      <select class="alert-fs" id="alertPrioridad" onchange="renderAlertTable()">
+        <option value="">Todas las Prioridades</option>
+        <option value="ALTA">🔴 Alta — Inmediata</option>
+        <option value="MEDIA">⚠️ Media — 1 Semana</option>
+        <option value="BAJA">🟡 Baja — Seguimiento</option>
+      </select>
+    </div>
+    <div class="alert-body">
+      <table class="alert-tbl">
+        <thead><tr>
+          <th>Empresa / Cliente</th>
+          <th>Tipo Cuenta</th>
+          <th>Vendedor</th>
+          <th>Ejecutivo CS</th>
+          <th>Motivo Pérdida</th>
+          <th>Servicio</th>
+          <th>Origen → Destino</th>
+          <th>Días Sin Cierre</th>
+          <th>Prioridad</th>
+          <th>Acción Requerida</th>
+          <th># COT</th>
+          <th>Notif. CRM</th>
+        </tr></thead>
+        <tbody id="alertBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CLIENT CARDS TOP -->
+  <div class="sec-lbl">🏢 Empresas con Mayor Índice de Pérdidas <span style="font-weight:400;color:var(--lbl3);font-size:12px">· Clic para ver todas sus pérdidas</span></div>
+  <div class="client-grid" id="clientGrid"></div>
+
+  <!-- FULL LOSSES TABLE -->
+  <div class="table-section">
+    <div class="tbl-hdr">
+      <div class="tbl-title">📋 Tabla Completa de Pérdidas <span id="tblCnt" style="font-size:11px;font-weight:500;color:var(--lbl3)"></span></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input class="tbl-search" id="tblSearch" type="text" placeholder="🔍 Buscar empresa, ejecutivo..." oninput="renderTable()">
+        <select class="alert-fs" id="tblSortSel" onchange="renderTable()">
+          <option value="dias_desc">Días sin cierre ↓</option>
+          <option value="empresa">Empresa A-Z</option>
+          <option value="motivo">Por motivo</option>
+          <option value="recepcion">Más reciente</option>
+        </select>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr>
+          <th>#</th>
+          <th onclick="setTSort('COT')"># COT ↕</th>
+          <th onclick="setTSort('EMPRESA')">Empresa ↕</th>
+          <th>Tipo Cuenta</th>
+          <th onclick="setTSort('VENDEDOR')">Vendedor ↕</th>
+          <th onclick="setTSort('EJECUTIVO')">Ejecutivo CS ↕</th>
+          <th>Motivo Pérdida</th>
+          <th>Servicio</th>
+          <th>Origen → Destino</th>
+          <th onclick="setTSort('RECEPCION')">Recepción ↕</th>
+          <th onclick="setTSort('DIAS')">Días ↕</th>
+          <th>Estatus</th>
+          <th>Observaciones</th>
+        </tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table>
+    </div>
+    <div class="tbl-footer">
+      <span id="tblInfo"></span>
+      <div class="pager">
+        <button class="pgbtn" id="pgPrev" onclick="prevPage()">‹ Anterior</button>
+        <span class="pginfo" id="pgInfo"></span>
+        <button class="pgbtn" id="pgNext" onclick="nextPage()">Siguiente ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-section">
+    <div class="chart-hdr">
+      <div class="chart-title">📈 Evolución Semanal de Pérdidas</div>
+      <div class="chart-tabs" id="chartTabs">
+        <button class="ctab act" onclick="setChart('motivos',this)">Por Motivo</button>
+        <button class="ctab" onclick="setChart('ejecutivo',this)">Por Ejecutivo</button>
+        <button class="ctab" onclick="setChart('servicio',this)">Por Servicio</button>
+        <button class="ctab" onclick="setChart('total',this)">Volumen Total</button>
+      </div>
+    </div>
+    <div class="chart-body">
+      <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+    </div>
+    <div class="chart-legend" id="chartLegend"></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="moverlay" id="moverlay" onclick="closeM(event)">
+  <div class="mbox">
+    <div class="mhdr">
+      <div class="mhdr-left">
+        <div class="mhdr-icon" id="micon"></div>
+        <div class="mtitle" id="mtitle"></div>
+        <div class="msubt" id="msubt"></div>
+        <div class="mchips" id="mchips"></div>
+      </div>
+      <button class="mclose" onclick="closeM()">✕</button>
+    </div>
+    <div class="mkpi-grid" id="mkpiGrid"></div>
+    <div class="msearch-bar">
+      <input class="msearch" id="msearch" type="text" placeholder="Buscar en resultados..." oninput="filterM()">
+      <span class="mcount" id="mcount">0</span>
+    </div>
+    <div class="mbody">
+      <table class="mtbl">
+        <thead><tr id="mthead"></tr></thead>
+        <tbody id="mtbody"></tbody>
+      </table>
+    </div>
+    <div class="mfooter">
+      <span id="mfooterInfo"></span>
+      <button class="mexport" onclick="exportM()">⬇ Exportar CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+let D = [];
+
+const MOTIVOS_CFG = {
+  'PRECIO':               {color:'#FF3B30',icon:'💰',fill:'rgba(255,59,48,0.12)',accion:'Revisar tarifa y enviar propuesta alternativa al vendedor'},
+  'TIEMPO':               {color:'#FF9500',icon:'⏱️',fill:'rgba(255,149,0,0.12)',accion:'Evaluar opciones de tránsito más rápidas'},
+  'SEGUIMIENTO':          {color:'#FFCC00',icon:'📞',fill:'rgba(255,204,0,0.15)',accion:'Llamada inmediata al cliente — Alerta 1 semana'},
+  'CLIENTE NO RESPONDIÓ': {color:'#5856D6',icon:'🔇',fill:'rgba(88,86,214,0.12)',accion:'Contacto urgente — Visita / Videollamada'},
+  'COMPETENCIA':          {color:'#AF52DE',icon:'⚔️',fill:'rgba(175,82,222,0.12)',accion:'Análisis de ventajas competitivas + propuesta valor'},
+  'NO VIABLE':            {color:'#8E8E93',icon:'🚫',fill:'rgba(142,142,147,0.12)',accion:'Documentar y revisar criterios de viabilidad'},
+  'SIN MOTIVO':           {color:'#C6C6C8',icon:'❓',fill:'rgba(198,198,200,0.12)',accion:'Contactar para obtener retroalimentación'},
+};
+const PRIORIDAD_CFG = {
+  PRECIO:{nivel:'ALTA',label:'🔴 Alta — Tarifa'},
+  TIEMPO:{nivel:'ALTA',label:'🔴 Alta — Tránsito'},
+  SEGUIMIENTO:{nivel:'MEDIA',label:'⚠️ Media — 1 Sem. Llamada'},
+  'CLIENTE NO RESPONDIÓ':{nivel:'ALTA',label:'🔴 Alta — Sin Resp.'},
+  COMPETENCIA:{nivel:'MEDIA',label:'⚠️ Media — Compet.'},
+  'NO VIABLE':{nivel:'BAJA',label:'🟡 Baja — Viabilidad'},
+  'SIN MOTIVO':{nivel:'MEDIA',label:'⚠️ Media — Sin Info'},
+};
+// WEEK_LABELS generado dinámicamente
+function getWeekLabel(yw) {
+  if (!yw) return '';
+  const [yr, wkStr] = yw.split('-W');
+  const wk = parseInt(wkStr, 10);
+  return `Sem ${wk} · ${yr}`;
+}
+const WEEK_LABELS = new Proxy({}, { get: (_, k) => getWeekLabel(k) });
+
+const COL_KEYS   = ['COT','EJECUTIVO','EMPRESA','CTE_PSP_AGTE','USER_CTE','VENDEDOR','PO_REF','IMPO_EXPO','SERVICIO_N','ORIGEN','DESTINO','INCOTERM','RECEPCION','ENVIO','DIAS','CERRADA','PROFIT_PCT','OBSERVACIONES','MOTIVO'];
+const COL_LABELS = ['# COT','Ejecutivo','Empresa','Tipo Cuenta','User CTE','Vendedor','PO/Ref','Impo/Expo','Servicio','Origen','Destino','Incoterm','Recepción','Envío','Días','Estatus','% Profit','Observaciones','Motivo'];
+
+let filtered=[], modalData=[], modalFiltered=[], chartInst=null;
+let page=1, tSortCol='DIAS', tSortDir=-1, chartView='motivos';
+const PG=30;
+
+/* ── CLASSIFY MOTIVO ── */
+function classifyMotivo(obs, estatus){
+  if(!obs||obs.trim()==='None'||obs.trim()===''){
+    return estatus==='SIN FEEDBACK'?'CLIENTE NO RESPONDIÓ':'SIN MOTIVO';
+  }
+  const u=obs.toUpperCase();
+  if(/PRECIO|CARO|COSTOSO|TARIFA|RATE|M(Á|A)S BARATA|MEJOR PRECIO|ECONÓMICO/.test(u)) return 'PRECIO';
+  if(/TIEMPO|TR(Á|A)NSITO|URGENTE|TARD(Ó|O)|PLAZO|TRANSIT|AGILIZAR|NO VIABLE|NO ES POSIBLE/.test(u)) return 'TIEMPO';
+  if(/SEGUIMIENTO|NO SE DIO|FOLLOW|CONTACTO|OLVID/.test(u)) return 'SEGUIMIENTO';
+  if(/CLIENTE (NO|INDICA|CANCEL)|NO EST(Á|A) LISTA|YA SALI(Ó|O)|CANCELA|CONFUSION|CANCEL|NO TENIA|EXPEDIE|CARGA NO/.test(u)) return 'CLIENTE NO RESPONDIÓ';
+  if(/COMPETENCIA|OTRO PROV|OTRO AGENTE|DIRECTAMENTE|YA TEN(Í|I)A PROVEEDOR/.test(u)) return 'COMPETENCIA';
+  if(/NO VIABLE|INVIABLE|NO APLICA|IMPOSIBLE/.test(u)) return 'NO VIABLE';
+  return estatus==='SIN FEEDBACK'?'CLIENTE NO RESPONDIÓ':'SIN MOTIVO';
+}
+
+/* ── COMPUTE LOSSES ── */
+function computeLosses(){
+  return D.filter(r=>r.CERRADA==='ABIERTA'||r.CERRADA==='SIN FEEDBACK').map(r=>({
+    ...r,
+    MOTIVO: classifyMotivo(r.OBSERVACIONES||'', r.CERRADA),
+    SERVICIO_N: normServ(r.SERVICIO),
+  }));
+}
+
+function normEj(e){if(!e)return 'SIN ASIGNAR';e=e.trim().toUpperCase();if(['ESTEFANIA','ESTEFANÍA'].includes(e))return 'ESTEFANÍA';return e;}
+function normServ(s){if(!s)return 'N/A';s=s.trim().toUpperCase();if(s.includes('AÉREO')||s.includes('AEREO'))return 'AÉREO';if(['LTL','FTL','LTL / FTL'].includes(s))return 'TERRESTRE';if(s.includes('DESPACHO'))return 'DESPACHO';return s;}
+function getWeek(ds){
+  if(!ds||ds==='None')return '';
+  try{const d=new Date(ds);const jan1=new Date(d.getFullYear(),0,1);const sDay=jan1.getDay()||7;const doy=Math.floor((d-jan1)/86400000)+1;const wn=Math.ceil((doy+sDay-2)/7);const iso=new Date(d);iso.setDate(d.getDate()-((d.getDay()||7)-1));return `${iso.getFullYear()}-W${String(wn).padStart(2,'0')}`;}catch{return '';}
+}
+function fmtDate(v){if(!v||v==='None')return '—';return v.substring(0,10);}
+function fmtDias(v){if(v===null||v===undefined)return '—';const n=parseFloat(v);if(isNaN(n))return v;if(n>7)return `<span class="bdg bdg-r" style="font-size:10px">${n}d 🔴</span>`;if(n>1)return `<span class="bdg bdg-o">${n}d ⚠️</span>`;return `${n}d`;}
+function motivoBdg(m){const c=MOTIVOS_CFG[m]||MOTIVOS_CFG['SIN MOTIVO'];return `<span class="motivo-bdg" style="background:${c.fill};color:${c.color}">${c.icon} ${m}</span>`;}
+function statusBdg(s){if(s==='CERRADA')return '<span class="bdg bdg-g">✅ Cerrada</span>';if(s==='ABIERTA')return '<span class="bdg bdg-r">❌ No Cerrada</span>';return '<span class="bdg bdg-o">⏳ Sin FB</span>';}
+function prioTag(motivo){const p=PRIORIDAD_CFG[motivo]||{nivel:'MEDIA',label:'⚠️ Media'};const colors={ALTA:'rgba(255,59,48,.12)',MEDIA:'rgba(255,149,0,.12)',BAJA:'rgba(255,204,0,.15)'};const tc={ALTA:'#FF3B30',MEDIA:'#FF9500',BAJA:'#CCAA00'};return `<span style="padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:${colors[p.nivel]};color:${tc[p.nivel]}">${p.label}</span>`;}
+
+/* ── WEEK DD ── */
+function buildWeekDD(){
+  const ws=new Set();D.forEach(r=>{const w=getWeek(r.RECEPCION);if(w)ws.add(w);});
+  const sel=document.getElementById('fSem');
+  [...ws].sort().forEach(w=>{const o=document.createElement('option');o.value=w;o.textContent=WEEK_LABELS[w]||w;sel.appendChild(o);});
+}
+
+/* ── FILTERS ── */
+function applyF(){
+  const sem=document.getElementById('fSem').value;
+  const mes=document.getElementById('fMes').value;
+  const mot=document.getElementById('fMotivo').value;
+  const vend=document.getElementById('fVend').value;
+  const ej=document.getElementById('fEj').value;
+  const serv=document.getElementById('fServ').value;
+  const tipo=document.getElementById('fTipo').value;
+  const est=document.getElementById('fEst').value;
+  ['fSem','fMes','fMotivo','fVend','fEj','fServ','fTipo','fEst'].forEach(id=>{
+    document.getElementById(id).classList.toggle('act',!!document.getElementById(id).value);
+  });
+  const losses=computeLosses();
+  filtered=losses.filter(r=>{
+    if(sem&&getWeek(r.RECEPCION)!==sem)return false;
+    if(mes&&!(r.RECEPCION||'').startsWith(mes))return false;
+    if(mot&&r.MOTIVO!==mot)return false;
+    if(vend&&(r.VENDEDOR||'').trim().toUpperCase()!==vend)return false;
+    if(ej&&normEj(r.EJECUTIVO)!==ej)return false;
+    if(serv&&normServ(r.SERVICIO)!==serv)return false;
+    if(tipo&&(r.CTE_PSP_AGTE||'').trim().toUpperCase().replace('CLIENTE ','CLIENTE')!==tipo)return false;
+    if(est&&r.CERRADA!==est)return false;
+    return true;
+  });
+  document.getElementById('fcount').textContent=`${filtered.length} pérdidas`;
+  page=1;
+  renderAll();
+}
+function resetF(){
+  ['fSem','fMes','fMotivo','fVend','fEj','fServ','fTipo','fEst'].forEach(id=>{
+    document.getElementById(id).value='';document.getElementById(id).classList.remove('act');
+  });
+  filtered=computeLosses();page=1;
+  document.getElementById('fcount').textContent=`${filtered.length} pérdidas`;
+  renderAll();
+}
+
+/* ── KPIS ── */
+function updateKPIs(){
+  const tot=filtered.length;
+  const abierta=filtered.filter(r=>r.CERRADA==='ABIERTA').length;
+  const sinfb=filtered.filter(r=>r.CERRADA==='SIN FEEDBACK').length;
+  const precio=filtered.filter(r=>r.MOTIVO==='PRECIO').length;
+  const cliNoResp=filtered.filter(r=>r.MOTIVO==='CLIENTE NO RESPONDIÓ').length;
+  const totalCots=D.length;
+  document.getElementById('kTotal').textContent=tot;
+  document.getElementById('kTotalSub').textContent=`de ${totalCots} cotizaciones totales`;
+  document.getElementById('kAbierta').textContent=abierta;
+  document.getElementById('kSinFb').textContent=sinfb;
+  document.getElementById('kPrecio').textContent=precio;
+  document.getElementById('kCliNoResp').textContent=cliNoResp;
+  document.getElementById('kTasaPerd').textContent=totalCots?(tot/totalCots*100).toFixed(1)+'%':'—';
+}
+
+/* ── MOTIVOS CARDS ── */
+function renderMotivos(){
+  const counts={};
+  Object.keys(MOTIVOS_CFG).forEach(m=>{counts[m]=0;});
+  filtered.forEach(r=>{if(counts[r.MOTIVO]!==undefined)counts[r.MOTIVO]++;else counts['SIN MOTIVO']++;});
+  const max=Math.max(...Object.values(counts));
+  document.getElementById('motivosGrid').innerHTML=Object.entries(MOTIVOS_CFG).map(([m,cfg])=>`
+    <div class="motivo-card" style="--mc:${cfg.color}" onclick="openModal('motivo_${m}')">
+      <div class="notif-dot"></div>
+      <div class="motivo-icon">${cfg.icon}</div>
+      <div class="motivo-name">${m}</div>
+      <div class="motivo-val">${counts[m]||0}</div>
+      <div class="motivo-pct">${filtered.length?(((counts[m]||0)/filtered.length)*100).toFixed(1)+'% del total':'—'}</div>
+      <div class="motivo-bar"><div class="motivo-bar-fill" style="width:${max?(counts[m]||0)/max*100:0}%"></div></div>
+    </div>`).join('');
+}
+
+/* ── ALERT TABLE ── */
+function renderAlertTable(){
+  const vend=document.getElementById('alertVend').value;
+  const mot=document.getElementById('alertMotivo').value;
+  const ej=document.getElementById('alertEj').value;
+  const prio=document.getElementById('alertPrioridad').value;
+  let data=filtered;
+  if(vend)data=data.filter(r=>(r.VENDEDOR||'').trim().toUpperCase()===vend);
+  if(mot)data=data.filter(r=>r.MOTIVO===mot);
+  if(ej)data=data.filter(r=>normEj(r.EJECUTIVO)===ej);
+  if(prio)data=data.filter(r=>(PRIORIDAD_CFG[r.MOTIVO]||{}).nivel===prio);
+  data=[...data].sort((a,b)=>{
+    const pa=(PRIORIDAD_CFG[a.MOTIVO]||{}).nivel==='ALTA'?0:(PRIORIDAD_CFG[a.MOTIVO]||{}).nivel==='MEDIA'?1:2;
+    const pb=(PRIORIDAD_CFG[b.MOTIVO]||{}).nivel==='ALTA'?0:(PRIORIDAD_CFG[b.MOTIVO]||{}).nivel==='MEDIA'?1:2;
+    if(pa!==pb)return pa-pb;
+    const da=typeof a.DIAS==='number'?a.DIAS:-1;
+    const db=typeof b.DIAS==='number'?b.DIAS:-1;
+    return db-da;
+  });
+  const tbody=document.getElementById('alertBody');
+  if(!data.length){tbody.innerHTML=`<tr><td colspan="12" class="alert-empty">✅ Sin pérdidas para los filtros seleccionados</td></tr>`;return;}
+  tbody.innerHTML=data.map(r=>{
+    const ruta=`${(r.ORIGEN||'').trim().toUpperCase()||'—'} → ${(r.DESTINO||'').trim().toUpperCase()||'—'}`;
+    const cfg=MOTIVOS_CFG[r.MOTIVO]||MOTIVOS_CFG['SIN MOTIVO'];
+    const tipo=(r.CTE_PSP_AGTE||'CLIENTE').trim().toUpperCase().replace('CLIENTE ','CLIENTE');
+    const tipocls={CLIENTE:'tipo-cliente',AGENTE:'tipo-agente',PROSPECTO:'tipo-prospecto'}[tipo]||'tipo-cliente';
+    return `<tr onclick="openClientModal('${(r.EMPRESA||'').replace(/'/g,'\'')}')" title="Ver detalle de ${r.EMPRESA}">
+      <td><strong>${r.EMPRESA||'—'}</strong></td>
+      <td><span class="tipo-tag ${tipocls}" style="padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;display:inline-block">${tipo}</span></td>
+      <td>${(r.VENDEDOR||'').trim().toUpperCase()||'—'}</td>
+      <td>${normEj(r.EJECUTIVO)||'—'}</td>
+      <td>${motivoBdg(r.MOTIVO)}</td>
+      <td><span class="bdg bdg-b">${normServ(r.SERVICIO)}</span></td>
+      <td style="font-size:11px">${ruta}</td>
+      <td>${fmtDias(r.DIAS)}</td>
+      <td>${prioTag(r.MOTIVO)}</td>
+      <td style="font-size:10px;color:${cfg.color};font-weight:600">${cfg.accion}</td>
+      <td>${r.COT||'—'}</td>
+      <td><span style="padding:2px 8px;border-radius:5px;font-size:9px;font-weight:700;background:rgba(88,86,214,.12);color:var(--indigo)">📲 CRM</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── CLIENT CARDS ── */
+function renderClientCards(){
+  const comp={};
+  filtered.forEach(r=>{
+    const e=(r.EMPRESA||'').trim();
+    if(!e)return;
+    if(!comp[e])comp[e]={empresa:e,recs:[]};
+    comp[e].recs.push(r);
+  });
+  const sorted=Object.values(comp).sort((a,b)=>b.recs.length-a.recs.length).slice(0,6);
+  document.getElementById('clientGrid').innerHTML=sorted.map(c=>{
+    const mCounts={};
+    c.recs.forEach(r=>{mCounts[r.MOTIVO]=(mCounts[r.MOTIVO]||0)+1;});
+    const topMot=Object.entries(mCounts).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    const vend=(c.recs[0].VENDEDOR||'').trim().toUpperCase();
+    return `<div class="client-card" onclick="openClientModal('${c.empresa.replace(/'/g,'\'')}')">
+      <div class="cc-name">🏢 ${c.empresa}</div>
+      <div style="font-size:11px;color:var(--lbl3);margin-bottom:10px">Vendedor: ${vend||'—'}</div>
+      <div class="cc-kpis">
+        <div class="cc-k"><div class="cc-k-val" style="color:var(--red)">${c.recs.length}</div><div class="cc-k-lbl">Pérdidas</div></div>
+        <div class="cc-k"><div class="cc-k-val" style="color:var(--orange)">${c.recs.filter(r=>r.CERRADA==='ABIERTA').length}</div><div class="cc-k-lbl">No Cerr.</div></div>
+        <div class="cc-k"><div class="cc-k-val" style="color:var(--indigo)">${c.recs.filter(r=>r.CERRADA==='SIN FEEDBACK').length}</div><div class="cc-k-lbl">Sin FB</div></div>
+        <div class="cc-k"><div class="cc-k-val" style="color:var(--lbl3)">${c.recs.map(r=>r.DIAS).filter(v=>typeof v==='number'&&v>0&&v<999).reduce((a,b)=>a+b,0)||0}d</div><div class="cc-k-lbl">Días Tot.</div></div>
+      </div>
+      <div class="cc-motivos">${topMot.map(([m,n])=>{const cfg=MOTIVOS_CFG[m]||MOTIVOS_CFG['SIN MOTIVO'];return `<span class="motivo-bdg" style="background:${cfg.fill};color:${cfg.color}">${cfg.icon} ${m}: ${n}</span>`;}).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ── MAIN TABLE ── */
+function setTSort(col){if(tSortCol===col)tSortDir*=-1;else{tSortCol=col;tSortDir=-1;}page=1;renderTable();}
+function renderTable(){
+  const q=(document.getElementById('tblSearch').value||'').toLowerCase();
+  const sortSel=document.getElementById('tblSortSel').value;
+  let data=q?filtered.filter(r=>['EMPRESA','EJECUTIVO','VENDEDOR','MOTIVO'].some(k=>String(r[k]||'').toLowerCase().includes(q))):filtered;
+  // sort
+  if(tSortCol!=='DIAS'||sortSel==='dias_desc'){
+    data=[...data].sort((a,b)=>{
+      if(sortSel==='empresa')return tSortDir*(a.EMPRESA||'').localeCompare(b.EMPRESA||'');
+      if(sortSel==='motivo')return tSortDir*(a.MOTIVO||'').localeCompare(b.MOTIVO||'');
+      if(sortSel==='recepcion')return tSortDir*((a.RECEPCION||'').localeCompare(b.RECEPCION||''));
+      const av=a[tSortCol],bv=b[tSortCol];
+      if(typeof av==='string')return tSortDir*av.localeCompare(bv||'');
+      return tSortDir*((bv||0)-(av||0));
+    });
+  }else{data=[...data].sort((a,b)=>((b.DIAS||0)-(a.DIAS||0)));}
+  const tot=data.length;const tp=Math.max(1,Math.ceil(tot/PG));
+  if(page>tp)page=tp;
+  const start=(page-1)*PG,end=Math.min(start+PG,tot);
+  const pg=data.slice(start,end);
+  document.getElementById('tblCnt').textContent=`· ${tot} pérdidas`;
+  document.getElementById('tblInfo').textContent=`${start+1}–${end} de ${tot}`;
+  document.getElementById('pgInfo').textContent=`Pág ${page}/${tp}`;
+  document.getElementById('pgPrev').disabled=page<=1;
+  document.getElementById('pgNext').disabled=page>=tp;
+  const tbody=document.getElementById('tblBody');
+  if(!pg.length){tbody.innerHTML=`<tr><td colspan="13" class="mempty">Sin pérdidas para los filtros seleccionados</td></tr>`;return;}
+  tbody.innerHTML=pg.map((r,i)=>{
+    const rank=start+i+1;
+    const ruta=`${(r.ORIGEN||'').trim().toUpperCase()||'—'} → ${(r.DESTINO||'').trim().toUpperCase()||'—'}`;
+    const tipo=(r.CTE_PSP_AGTE||'CLIENTE').trim().toUpperCase().replace('CLIENTE ','CLIENTE');
+    return `<tr onclick="openClientModal('${(r.EMPRESA||'').replace(/'/g,'\'')}')" title="Clic para ver ${r.EMPRESA}">
+      <td><span class="rank-med rm-n">${rank}</span></td>
+      <td><strong>${r.COT||'—'}</strong></td>
+      <td><strong>${r.EMPRESA||'—'}</strong></td>
+      <td><span style="padding:2px 7px;border-radius:5px;font-size:9px;font-weight:700;background:rgba(0,122,255,.1);color:var(--blue)">${tipo}</span></td>
+      <td>${(r.VENDEDOR||'').trim().toUpperCase()||'—'}</td>
+      <td>${normEj(r.EJECUTIVO)||'—'}</td>
+      <td>${motivoBdg(r.MOTIVO)}</td>
+      <td><span class="bdg bdg-b">${normServ(r.SERVICIO)||'—'}</span></td>
+      <td style="font-size:11px">${ruta}</td>
+      <td>${fmtDate(r.RECEPCION)}</td>
+      <td>${fmtDias(r.DIAS)}</td>
+      <td>${statusBdg(r.CERRADA)}</td>
+      <td style="max-width:180px;white-space:normal;font-size:10px;color:var(--lbl3)">${r.OBSERVACIONES||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+function prevPage(){if(page>1){page--;renderTable();}}
+function nextPage(){const tp=Math.ceil(filtered.length/PG);if(page<tp){page++;renderTable();}}
+
+/* ── CHART ── */
+function setChart(v,btn){
+  chartView=v;
+  document.querySelectorAll('#chartTabs .ctab').forEach(b=>b.classList.remove('act'));
+  if(btn)btn.classList.add('act');
+  renderChart();
+}
+function renderChart(){
+  const allWeeks=[...new Set(D.map(r=>getWeek(r.RECEPCION)).filter(Boolean))].sort().slice(-14);
+  if(chartInst){chartInst.destroy();chartInst=null;}
+  const ctx=document.getElementById('mainChart').getContext('2d');
+  let datasets=[];
+  if(chartView==='motivos'){
+    const topMotivos=['PRECIO','TIEMPO','CLIENTE NO RESPONDIÓ','COMPETENCIA','SEGUIMIENTO'];
+    datasets=topMotivos.map(m=>{
+      const cfg=MOTIVOS_CFG[m];
+      return{label:m,data:allWeeks.map(w=>filtered.filter(r=>r.MOTIVO===m&&getWeek(r.RECEPCION)===w).length),
+        backgroundColor:cfg.color+'BB',borderColor:cfg.color,borderWidth:2.5,borderRadius:5,borderSkipped:false};
+    });
+    document.getElementById('chartLegend').innerHTML=topMotivos.map(m=>`<div class="legend-item"><div class="legend-dot" style="background:${MOTIVOS_CFG[m].color}"></div>${MOTIVOS_CFG[m].icon} ${m}</div>`).join('');
+  }else if(chartView==='ejecutivo'){
+    const ejs=['ESTEFANÍA','GABRIEL','JIMENA','MICHEL'];
+    const ec={'ESTEFANÍA':'#AF52DE','GABRIEL':'#007AFF','JIMENA':'#34C759','MICHEL':'#FF9500'};
+    datasets=ejs.map(ej=>({label:ej,data:allWeeks.map(w=>filtered.filter(r=>normEj(r.EJECUTIVO)===ej&&getWeek(r.RECEPCION)===w).length),
+      backgroundColor:ec[ej]+'BB',borderColor:ec[ej],borderWidth:2.5,borderRadius:5,borderSkipped:false}));
+    document.getElementById('chartLegend').innerHTML=ejs.map(ej=>`<div class="legend-item"><div class="legend-dot" style="background:${ec[ej]}"></div>${ej}</div>`).join('');
+  }else if(chartView==='servicio'){
+    const servs=['LCL','FCL','AÉREO','TERRESTRE'];
+    const sc={LCL:'#007AFF',FCL:'#34C759',AÉREO:'#5856D6',TERRESTRE:'#FF9500'};
+    datasets=servs.map(s=>({label:s,data:allWeeks.map(w=>filtered.filter(r=>normServ(r.SERVICIO)===s&&getWeek(r.RECEPCION)===w).length),
+      backgroundColor:sc[s]+'BB',borderColor:sc[s],borderWidth:2.5,borderRadius:5,borderSkipped:false}));
+    document.getElementById('chartLegend').innerHTML=servs.map(s=>`<div class="legend-item"><div class="legend-dot" style="background:${sc[s]}"></div>${s}</div>`).join('');
+  }else{
+    datasets=[{label:'Total Pérdidas',data:allWeeks.map(w=>filtered.filter(r=>getWeek(r.RECEPCION)===w).length),
+      backgroundColor:'#FF3B30BB',borderColor:'#FF3B30',borderWidth:2.5,borderRadius:6,borderSkipped:false}];
+    document.getElementById('chartLegend').innerHTML='<div class="legend-item"><div class="legend-dot" style="background:#FF3B30"></div>Total Pérdidas</div>';
+  }
+  chartInst=new Chart(ctx,{
+    type:'bar',data:{labels:allWeeks.map(w=>WEEK_LABELS[w]||w),datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,
+        backgroundColor:'rgba(0,0,0,0.85)',padding:12,cornerRadius:10,
+        titleFont:{size:12,weight:'bold'},bodyFont:{size:12},
+        callbacks:{label:i=>`${i.dataset.label}: ${i.parsed.y}`}
+      }},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:10,weight:'600'},color:'#555',maxRotation:40,minRotation:25}},
+        y:{grid:{color:'#F0F2F5'},ticks:{font:{size:11,weight:'600'},color:'#555'},beginAtZero:true,
+          afterDataLimits:s=>{s.max=Math.ceil(s.max*1.15);}
+        }
+      },
+      interaction:{mode:'index',intersect:false},animation:{duration:500}
+    }
+  });
+}
+
+/* ── NOTIFICATIONS ── */
+function sendAlerts(tipo,label){
+  let data;
+  if(tipo==='ALL') data=filtered;
+  else if(tipo==='SEGUIMIENTO') data=filtered.filter(r=>r.MOTIVO==='SEGUIMIENTO'||r.MOTIVO==='CLIENTE NO RESPONDIÓ');
+  else data=filtered.filter(r=>r.MOTIVO==='PRECIO'||r.MOTIVO==='TIEMPO'||r.MOTIVO==='COMPETENCIA');
+  
+  if(!data.length){showToast('ℹ️','Sin pérdidas','No hay pérdidas para notificar con los filtros actuales.','#5856D6');return;}
+  
+  // Group by vendedor
+  const byVend={};
+  data.forEach(r=>{const v=(r.VENDEDOR||'N/A').trim().toUpperCase();if(!byVend[v])byVend[v]=[];byVend[v].push(r);});
+  
+  let delay=0;
+  Object.entries(byVend).forEach(([vend,recs])=>{
+    setTimeout(()=>{
+      const topMot=Object.entries(recs.reduce((a,r)=>{a[r.MOTIVO]=(a[r.MOTIVO]||0)+1;return a;},{})).sort((a,b)=>b[1]-a[1])[0];
+      const cfg=MOTIVOS_CFG[topMot?topMot[0]:'SIN MOTIVO']||MOTIVOS_CFG['SIN MOTIVO'];
+      const prioLabel=PRIORIDAD_CFG[topMot?topMot[0]:'SIN MOTIVO']||{label:'⚠️ Media',nivel:'MEDIA'};
+      showToast(
+        cfg.icon,
+        `${label} · ${vend}`,
+        `${recs.length} pérdidas · Principal motivo: ${topMot?topMot[0]:'Sin clasificar'} (${topMot?topMot[1]:0})
+${cfg.accion}`,
+        cfg.color,
+        `Prioridad: ${prioLabel.label} · ${new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})}`,
+        vend,recs
+      );
+    },delay);
+    delay+=500;
+  });
+}
+
+function showToast(icon,title,body,color,footer='',vend='',recs=[]){
+  const wrap=document.getElementById('toastWrap');
+  const div=document.createElement('div');
+  div.className='toast';div.style.setProperty('--tc',color);
+  div.innerHTML=`
+    <div class="toast-hdr">
+      <div class="toast-title">${icon} ${title}</div>
+      <button class="toast-close" onclick="this.closest('.toast').remove()">×</button>
+    </div>
+    <div class="toast-body">${body.replace(/\n/g,'<br>')}</div>
+    ${footer?`<div class="toast-footer">${footer}</div>`:''}
+    ${recs.length?`<div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap">${recs.slice(0,4).map(r=>`<span style="padding:2px 7px;border-radius:5px;font-size:9px;font-weight:700;background:${(MOTIVOS_CFG[r.MOTIVO]||MOTIVOS_CFG['SIN MOTIVO']).fill};color:${(MOTIVOS_CFG[r.MOTIVO]||MOTIVOS_CFG['SIN MOTIVO']).color}">${r.EMPRESA}</span>`).join('')}${recs.length>4?`<span style="font-size:9px;color:var(--lbl3)">+${recs.length-4} más</span>`:''}</div>`:''}
+  `;
+  wrap.appendChild(div);
+  setTimeout(()=>{if(div.parentNode)div.remove();},7000);
+}
+
+/* ── MODAL ── */
+let modalType='';
+function openModal(type){
+  modalType=type;
+  let data=filtered;
+  let title='',icon='',iconBg='rgba(255,59,48,0.12)';
+  if(type==='all'){title='Todas las Pérdidas';icon='📉';}
+  else if(type==='abierta'){data=filtered.filter(r=>r.CERRADA==='ABIERTA');title='No Cerradas';icon='❌';}
+  else if(type==='sinfb'){data=filtered.filter(r=>r.CERRADA==='SIN FEEDBACK');title='Sin Feedback';icon='⏳';}
+  else if(type==='precio'){data=filtered.filter(r=>r.MOTIVO==='PRECIO');title='Pérdidas por Precio';icon='💰';}
+  else if(type==='cliNoResp'){data=filtered.filter(r=>r.MOTIVO==='CLIENTE NO RESPONDIÓ');title='Cliente No Respondió';icon='🔇';}
+  else if(type.startsWith('motivo_')){
+    const m=type.replace('motivo_','');
+    data=filtered.filter(r=>r.MOTIVO===m);
+    const cfg=MOTIVOS_CFG[m]||MOTIVOS_CFG['SIN MOTIVO'];
+    title=`Motivo: ${m}`;icon=cfg.icon;iconBg=cfg.fill;
+  }
+  const mc={};data.forEach(r=>{mc[r.MOTIVO]=(mc[r.MOTIVO]||0)+1;});
+  const topM=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('micon').textContent=icon;
+  document.getElementById('micon').style.background=iconBg;
+  document.getElementById('mtitle').textContent=title;
+  document.getElementById('msubt').textContent=`${data.length} cotizaciones no cerradas`;
+  document.getElementById('mchips').innerHTML=[
+    `<span class="mchip" style="background:rgba(255,59,48,.12);color:var(--red)">Total: ${data.length}</span>`,
+    topM?`<span class="mchip" style="background:${(MOTIVOS_CFG[topM[0]]||MOTIVOS_CFG['SIN MOTIVO']).fill};color:${(MOTIVOS_CFG[topM[0]]||MOTIVOS_CFG['SIN MOTIVO']).color}">Top motivo: ${topM[0]} (${topM[1]})</span>`:'',
+  ].join('');
+  document.getElementById('mkpiGrid').innerHTML=`
+    <div class="mkc" style="--kbg:rgba(255,59,48,.1);--kc:#FF3B30"><div class="mkv">${data.filter(r=>r.CERRADA==='ABIERTA').length}</div><div class="mkl">No Cerradas</div></div>
+    <div class="mkc" style="--kbg:rgba(255,149,0,.1);--kc:#FF9500"><div class="mkv">${data.filter(r=>r.CERRADA==='SIN FEEDBACK').length}</div><div class="mkl">Sin Feedback</div></div>
+    <div class="mkc" style="--kbg:rgba(88,86,214,.1);--kc:#5856D6"><div class="mkv">${new Set(data.map(r=>r.EMPRESA).filter(Boolean)).size}</div><div class="mkl">Empresas</div></div>
+    <div class="mkc" style="--kbg:rgba(175,82,222,.1);--kc:#AF52DE"><div class="mkv">${new Set(data.map(r=>(r.VENDEDOR||'').trim()).filter(Boolean)).size}</div><div class="mkl">Vendedores</div></div>
+  `;
+  modalData=[...data];modalFiltered=[...data];
+  document.getElementById('msearch').value='';
+  document.getElementById('mcount').textContent=`${data.length}`;
+  document.getElementById('mthead').innerHTML=['# COT','Empresa','Tipo Cuenta','Vendedor','Ejecutivo','Motivo','Servicio','Origen → Destino','Recepción','Días','Estatus','Prioridad','Observaciones'].map(l=>`<th>${l}</th>`).join('');
+  renderMRows();
+  document.getElementById('moverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function openClientModal(empresa){
+  const data=filtered.filter(r=>(r.EMPRESA||'').trim()===empresa);
+  modalType='client';
+  const mc={};data.forEach(r=>{mc[r.MOTIVO]=(mc[r.MOTIVO]||0)+1;});
+  document.getElementById('micon').textContent='🏢';
+  document.getElementById('micon').style.background='rgba(255,59,48,0.1)';
+  document.getElementById('mtitle').textContent=empresa;
+  document.getElementById('msubt').textContent=`${data.length} pérdidas registradas`;
+  document.getElementById('mchips').innerHTML=Object.entries(mc).sort((a,b)=>b[1]-a[1]).map(([m,n])=>{
+    const cfg=MOTIVOS_CFG[m]||MOTIVOS_CFG['SIN MOTIVO'];
+    return `<span class="mchip" style="background:${cfg.fill};color:${cfg.color}">${cfg.icon} ${m}: ${n}</span>`;
+  }).join('');
+  document.getElementById('mkpiGrid').innerHTML=`
+    <div class="mkc" style="--kbg:rgba(255,59,48,.1);--kc:#FF3B30"><div class="mkv">${data.length}</div><div class="mkl">Pérdidas</div></div>
+    <div class="mkc" style="--kbg:rgba(255,149,0,.1);--kc:#FF9500"><div class="mkv">${data.filter(r=>r.CERRADA==='ABIERTA').length}</div><div class="mkl">No Cerradas</div></div>
+    <div class="mkc" style="--kbg:rgba(88,86,214,.1);--kc:#5856D6"><div class="mkv">${data.filter(r=>r.CERRADA==='SIN FEEDBACK').length}</div><div class="mkl">Sin Feedback</div></div>
+    <div class="mkc" style="--kbg:rgba(175,82,222,.1);--kc:#AF52DE"><div class="mkv">${Object.keys(mc).length}</div><div class="mkl">Tipos de Motivo</div></div>
+  `;
+  modalData=[...data];modalFiltered=[...data];
+  document.getElementById('msearch').value='';
+  document.getElementById('mcount').textContent=`${data.length}`;
+  document.getElementById('mthead').innerHTML=['# COT','Empresa','Tipo','Vendedor','Ejecutivo','Motivo','Servicio','Origen → Destino','Recepción','Días','Estatus','Prioridad','Observaciones'].map(l=>`<th>${l}</th>`).join('');
+  renderMRows();
+  document.getElementById('moverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function filterM(){
+  const q=document.getElementById('msearch').value.toLowerCase();
+  modalFiltered=q?modalData.filter(r=>['EMPRESA','EJECUTIVO','VENDEDOR','MOTIVO','OBSERVACIONES'].some(k=>String(r[k]||'').toLowerCase().includes(q))):[...modalData];
+  document.getElementById('mcount').textContent=`${modalFiltered.length}`;
+  renderMRows();
+}
+function renderMRows(){
+  const tbody=document.getElementById('mtbody');
+  if(!modalFiltered.length){tbody.innerHTML=`<tr><td colspan="13" class="mempty">Sin resultados</td></tr>`;return;}
+  tbody.innerHTML=modalFiltered.map(r=>{
+    const ruta=`${(r.ORIGEN||'').trim().toUpperCase()||'—'} → ${(r.DESTINO||'').trim().toUpperCase()||'—'}`;
+    const tipo=(r.CTE_PSP_AGTE||'CLIENTE').trim().toUpperCase().replace('CLIENTE ','CLIENTE');
+    return `<tr>
+      <td><strong>${r.COT||'—'}</strong></td>
+      <td><strong>${r.EMPRESA||'—'}</strong></td>
+      <td><span style="padding:2px 7px;border-radius:5px;font-size:9px;font-weight:700;background:rgba(0,122,255,.1);color:var(--blue)">${tipo}</span></td>
+      <td>${(r.VENDEDOR||'').trim().toUpperCase()||'—'}</td>
+      <td>${normEj(r.EJECUTIVO)||'—'}</td>
+      <td>${motivoBdg(r.MOTIVO)}</td>
+      <td><span class="bdg bdg-b">${normServ(r.SERVICIO)||'—'}</span></td>
+      <td>${ruta}</td>
+      <td>${fmtDate(r.RECEPCION)}</td>
+      <td>${fmtDias(r.DIAS)}</td>
+      <td>${statusBdg(r.CERRADA)}</td>
+      <td>${prioTag(r.MOTIVO)}</td>
+      <td style="max-width:200px;white-space:normal;font-size:10px">${r.OBSERVACIONES||'—'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('mfooterInfo').textContent=`${modalFiltered.length} pérdidas`;
+}
+function closeM(e){if(e&&e.target!==document.getElementById('moverlay'))return;document.getElementById('moverlay').classList.remove('show');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+function exportM(){
+  const rows=[['# COT','Empresa','Tipo Cuenta','Vendedor','Ejecutivo','Motivo','Servicio','Origen','Destino','Recepción','Días','Estatus','Observaciones'].join(',')];
+  modalFiltered.forEach(r=>{
+    const ruta=`${(r.ORIGEN||'').trim()} → ${(r.DESTINO||'').trim()}`;
+    rows.push([r.COT,r.EMPRESA,r.CTE_PSP_AGTE,r.VENDEDOR,r.EJECUTIVO,r.MOTIVO,normServ(r.SERVICIO),r.ORIGEN,r.DESTINO,r.RECEPCION,r.DIAS,r.CERRADA,r.OBSERVACIONES].map(v=>`"${String(v===null||v===undefined?'':v).replace(/"/g,'""')}"`).join(','));
+  });
+  const b=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`m06_perdidas_${modalType}.csv`;a.click();
+}
+function exportCSV(){
+  const rows=[['# COT','Empresa','Tipo Cuenta','Vendedor','Ejecutivo','Motivo','Servicio','Origen','Destino','Recepción','Días','Estatus','Prioridad','Observaciones'].join(',')];
+  filtered.forEach(r=>rows.push([r.COT,r.EMPRESA,r.CTE_PSP_AGTE,r.VENDEDOR,normEj(r.EJECUTIVO),r.MOTIVO,normServ(r.SERVICIO),r.ORIGEN,r.DESTINO,r.RECEPCION,r.DIAS,r.CERRADA,(PRIORIDAD_CFG[r.MOTIVO]||{}).nivel,r.OBSERVACIONES].map(v=>`"${String(v===null||v===undefined?'':v).replace(/"/g,'""')}"`).join(',')));
+  const b=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='m06_analisis_perdidas.csv';a.click();
+}
+
+/* ── RENDER ALL ── */
+function renderAll(){
+  updateKPIs();
+  renderMotivos();
+  renderAlertTable();
+  renderClientCards();
+  renderTable();
+  renderChart();
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>window.addEventListener('load',()=>{if(typeof Chart!=='undefined')renderChart();});</script>
+<script src="assets/js/api.js"></script>
+<script>cargarDatos();</script>
+</body>
+</html>

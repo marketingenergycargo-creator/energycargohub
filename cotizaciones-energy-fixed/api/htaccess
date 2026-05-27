@@ -1,0 +1,35 @@
+# ============================================================
+#  Energy Cargo & Solutions – Apache Config
+#  Archivo: /api/.htaccess
+#  Sube esto DENTRO de la carpeta /api/
+# ============================================================
+
+# Sólo permite acceso a sheets.php
+Options -Indexes
+Options -ExecCGI
+
+# No permitir acceso directo a la carpeta de caché
+<FilesMatch "^cache">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Cabeceras de seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Compresión gzip para JSON
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
+</IfModule>
+
+# Cache de browser para la respuesta del endpoint (30s)
+<FilesMatch "sheets\.php$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "public, max-age=30"
+    </IfModule>
+</FilesMatch>

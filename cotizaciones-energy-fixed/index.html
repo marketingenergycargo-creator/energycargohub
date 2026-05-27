@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Cargo & Solutions · Dashboard 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sys-bg:#F2F2F7; --sys-bg2:#FFFFFF; --sys-bg3:#E5E5EA;
+  --sys-label:#000000; --sys-label2:#3C3C43; --sys-label3:#3C3C4399;
+  --sys-separator:#C6C6C8; --sys-fill:#78788033; --sys-fill2:#78788029; --sys-fill3:#7676801F;
+  --ios-blue:#007AFF; --ios-green:#34C759; --ios-red:#FF3B30;
+  --ios-orange:#FF9500; --ios-yellow:#FFCC00; --ios-purple:#AF52DE;
+  --ios-teal:#5AC8FA; --ios-indigo:#5856D6; --ios-pink:#FF2D55;
+  --shadow:0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 12px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--sys-bg);color:var(--sys-label);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* NAVBAR */
+.navbar{background:rgba(242,242,247,0.92);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--sys-separator);position:sticky;top:0;z-index:200}
+.navbar-inner{max-width:1440px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo{width:38px;height:38px;background:linear-gradient(135deg,#007AFF,#5856D6);border-radius:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,122,255,0.4);flex-shrink:0;overflow:hidden}
+.nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:11px}
+.nav-logo-text{font-size:17px}
+.nav-title{font-size:17px;font-weight:800;letter-spacing:-0.5px}
+.nav-sub{font-size:11px;color:var(--sys-label3);font-weight:500;margin-top:1px}
+.badge-live{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;background:rgba(52,199,89,0.12);color:var(--ios-green);font-size:11px;font-weight:700}
+.badge-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ios-green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* HERO */
+.hero{max-width:1440px;margin:0 auto;padding:52px 24px 36px;text-align:center}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:rgba(0,122,255,0.1);color:var(--ios-blue);font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:52px;font-weight:900;letter-spacing:-2.5px;line-height:1.04;margin-bottom:14px}
+.hero h1 span{background:linear-gradient(135deg,#007AFF 0%,#5856D6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:var(--sys-label3);font-weight:400;max-width:500px;margin:0 auto 36px;line-height:1.65}
+
+/* STATS STRIP */
+.stats-strip{display:flex;justify-content:center;gap:0;max-width:700px;margin:0 auto 52px;background:white;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--sys-separator)}
+.stat-item{flex:1;padding:18px 20px;text-align:center;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--sys-separator)}
+.stat-val{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1}
+.stat-lbl{font-size:11px;color:var(--sys-label3);font-weight:500;margin-top:4px}
+
+/* SECTION */
+.modules-section{max-width:1440px;margin:0 auto;padding:0 24px 56px}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px}
+.section-title{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.section-count{font-size:13px;color:var(--sys-label3)}
+
+/* GRID */
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* MODULE CARD */
+.mod-card{background:white;border-radius:20px;padding:24px;cursor:pointer;text-decoration:none;color:inherit;display:block;transition:transform 0.2s cubic-bezier(.34,1.56,.64,1),box-shadow 0.2s;box-shadow:var(--shadow);position:relative;overflow:hidden;border:1.5px solid transparent}
+.mod-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:0;transition:opacity 0.18s}
+.mod-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,0.13),0 4px 12px rgba(0,0,0,0.06)}
+.mod-card:hover::after{opacity:1}
+.mod-card:active{transform:scale(0.97)}
+
+.mod-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;background:var(--icon-bg)}
+.mod-num{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.mod-name{font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:7px;line-height:1.3}
+.mod-desc{font-size:12px;color:var(--sys-label3);line-height:1.55;font-weight:400}
+.mod-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+.mod-tag{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;background:var(--icon-bg);color:var(--accent)}
+.mod-arrow{position:absolute;bottom:18px;right:18px;width:28px;height:28px;border-radius:8px;background:var(--icon-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;opacity:0;transition:opacity 0.15s,transform 0.15s}
+.mod-card:hover .mod-arrow{opacity:1;transform:translateX(2px)}
+.mod-status{position:absolute;top:16px;right:16px;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700}
+.status-ready{background:rgba(52,199,89,0.12);color:var(--ios-green)}
+.status-soon{background:rgba(255,149,0,0.12);color:var(--ios-orange)}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px;font-size:12px;color:var(--sys-label3);border-top:1px solid var(--sys-separator)}
+.footer strong{color:var(--sys-label2)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.modules-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.modules-grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:36px}.stats-strip{flex-wrap:wrap}}
+@media(max-width:480px){.modules-grid{grid-template-columns:1fr}}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp 0.5s ease both}
+.stats-strip{animation:fadeUp 0.5s 0.08s ease both}
+.mod-card{animation:fadeUp 0.5s ease both}
+.mod-card:nth-child(1){animation-delay:0.06s}.mod-card:nth-child(2){animation-delay:0.11s}
+.mod-card:nth-child(3){animation-delay:0.16s}.mod-card:nth-child(4){animation-delay:0.21s}
+.mod-card:nth-child(5){animation-delay:0.26s}.mod-card:nth-child(6){animation-delay:0.31s}
+.mod-card:nth-child(7){animation-delay:0.36s}.mod-card:nth-child(8){animation-delay:0.41s}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="nav-brand">
+      <div class="nav-icon" style="background:none;box-shadow:none;padding:0;overflow:visible">
+        <img src="https://energycargo.mx/logo.png" alt="Energy Cargo"
+             style="width:36px;height:36px;object-fit:contain;border-radius:8px"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span style="display:none;width:36px;height:36px;background:linear-gradient(135deg,#007AFF,#5856D6);border-radius:8px;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;letter-spacing:-0.5px">EC</span>
+      </div>
+      <div>
+        <div class="nav-title">Energy Cargo &amp; Solutions</div>
+        <div class="nav-sub">Sistema de Cotizaciones · 2026</div>
+      </div>
+    </div>
+    <div class="badge-live">EN VIVO</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">📊 Dashboard Operativo</div>
+  <h1>Control de<br><span>Cotizaciones 2026</span></h1>
+  <p class="hero-sub">Plataforma centralizada de seguimiento, análisis y gestión de cotizaciones logísticas.</p>
+
+  <div class="stats-strip">
+
+  <div class="stat-item">
+    <div class="stat-val" id="kpiTotal" style="color:var(--ios-blue)">—</div>
+    <div class="stat-lbl">Total Cotizaciones</div>
+  </div>
+
+  <div class="stat-item">
+    <div class="stat-val" id="kpiCloseRate" style="color:var(--ios-green)">—</div>
+    <div class="stat-lbl">Tasa de Cierre</div>
+  </div>
+
+  <div class="stat-item">
+    <div class="stat-val" id="kpiProfit" style="color:var(--ios-purple)">—</div>
+    <div class="stat-lbl">Profit Promedio</div>
+  </div>
+
+  <div class="stat-item">
+    <div class="stat-val" id="kpiPending" style="color:var(--ios-orange)">—</div>
+    <div class="stat-lbl">&gt;24h Sin Respuesta</div>
+  </div>
+
+</div>
+
+<div class="modules-section">
+  <div class="section-header">
+    <span class="section-title">Módulos del Sistema</span>
+    <span class="section-count">8 módulos</span>
+  </div>
+
+  <div class="modules-grid">
+
+    <a class="mod-card" href="modulo1.html" style="--accent:#007AFF;--icon-bg:rgba(0,122,255,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">📊</div>
+      <div class="mod-num">Módulo 01</div>
+      <div class="mod-name">Resumen General</div>
+      <div class="mod-desc">KPIs totales, pipeline completo, tasa de cierre, profit y cotizaciones con más de 24h sin respuesta.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">KPIs</span>
+        <span class="mod-tag">Pipeline</span>
+        <span class="mod-tag">Profit</span>
+        <span class="mod-tag">Tabla</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo2.html" style="--accent:#AF52DE;--icon-bg:rgba(175,82,222,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">👤</div>
+      <div class="mod-num">Módulo 02</div>
+      <div class="mod-name">Dashboard por Ejecutivo (CS)</div>
+      <div class="mod-desc">Rendimiento individual por CS: volumen, tasa de cierre, clientes atendidos y tiempo de respuesta.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">CS</span>
+        <span class="mod-tag">Ejecutivos</span>
+        <span class="mod-tag">Métricas</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo3.html" style="--accent:#34C759;--icon-bg:rgba(52,199,89,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">💹</div>
+      <div class="mod-num">Módulo 03</div>
+      <div class="mod-name">Dashboard Comercial (Ventas)</div>
+      <div class="mod-desc">Análisis por vendedor, revenue pipeline, conversión comercial y comparativa de periodos.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Ventas</span>
+        <span class="mod-tag">Revenue</span>
+        <span class="mod-tag">Conversión</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo4.html" style="--accent:#FF9500;--icon-bg:rgba(255,149,0,0.1)">
+      <span class="mod-status status-ready">Disponible</span>
+      <div class="mod-icon">🏢</div>
+      <div class="mod-num">Módulo 04</div>
+      <div class="mod-name">Clientes + Servicios</div>
+      <div class="mod-desc">Ranking de clientes por volumen, servicios más solicitados, análisis de cartera y segmentación.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Clientes</span>
+        <span class="mod-tag">LCL</span>
+        <span class="mod-tag">FCL</span>
+        <span class="mod-tag">Aéreo</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo5.html" style="--accent:#5AC8FA;--icon-bg:rgba(90,200,250,0.1)">
+      <span class="mod-status status-soon">Próximo</span>
+      <div class="mod-icon">🚢</div>
+      <div class="mod-num">Módulo 05</div>
+      <div class="mod-name">Rutas + Proveedores</div>
+      <div class="mod-desc">Mapa de rutas origen-destino, rendimiento de proveedores, nuevos proveedores y frecuencia de uso.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Rutas</span>
+        <span class="mod-tag">Proveedores</span>
+        <span class="mod-tag">Orígenes</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo6.html" style="--accent:#FF3B30;--icon-bg:rgba(255,59,48,0.1)">
+      <span class="mod-status status-soon">Próximo</span>
+      <div class="mod-icon">📉</div>
+      <div class="mod-num">Módulo 06</div>
+      <div class="mod-name">Análisis de Pérdidas</div>
+      <div class="mod-desc">Cotizaciones no cerradas, motivos de pérdida, patrones por ejecutivo, cliente y servicio.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Pérdidas</span>
+        <span class="mod-tag">Motivos</span>
+        <span class="mod-tag">Patrones</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo7.html" style="--accent:#5856D6;--icon-bg:rgba(88,86,214,0.1)">
+      <span class="mod-status status-soon">Próximo</span>
+      <div class="mod-icon">🎯</div>
+      <div class="mod-num">Módulo 07</div>
+      <div class="mod-name">Control Customer Service</div>
+      <div class="mod-desc">Seguimiento en tiempo real de cotizaciones activas, SLA de respuesta, alertas y asignaciones.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">SLA</span>
+        <span class="mod-tag">Alertas</span>
+        <span class="mod-tag">Asig. Directas</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+    <a class="mod-card" href="modulo8.html" style="--accent:#FF2D55;--icon-bg:rgba(255,45,85,0.1)">
+      <span class="mod-status status-soon">Próximo</span>
+      <div class="mod-icon">📈</div>
+      <div class="mod-num">Módulo 08</div>
+      <div class="mod-name">Tendencias</div>
+      <div class="mod-desc">Evolución histórica mes a mes, comparativa 2025 vs 2026, estacionalidad y proyecciones.</div>
+      <div class="mod-tags">
+        <span class="mod-tag">Tendencias</span>
+        <span class="mod-tag">YoY</span>
+        <span class="mod-tag">Proyecciones</span>
+      </div>
+      <div class="mod-arrow">→</div>
+    </a>
+
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Energy Cargo &amp; Solutions</strong> · Dashboard Operativo 2026 · Datos: REPORTE_COT_2026.xlsm
+</div>
+
+<script>
+// ── Variables requeridas por api.js ──
+let D = [];
+let filtered = [];
+
+// ── renderAll es llamado por api.js tras cargar los datos ──
+function renderAll() {
+  const data = D;
+  const totalCotizaciones = data.length;
+
+  // CERRADAS (campo CERRADA normalizado por sheets.php)
+  const cerradas = data.filter(item =>
+    String(item.CERRADA || '').toUpperCase().includes('CERR')
+  );
+
+  // TASA CIERRE
+  const tasaCierre = totalCotizaciones > 0
+    ? ((cerradas.length / totalCotizaciones) * 100).toFixed(1)
+    : '0.0';
+
+  // PROFIT PROMEDIO (campo PROFIT_PCT de sheets.php, valor 0–1)
+  let totalProfit = 0, profitCount = 0;
+  data.forEach(item => {
+    const profit = parseFloat(item.PROFIT_PCT || item.PROFIT || 0);
+    if (!isNaN(profit) && profit > 0) {
+      totalProfit += profit;
+      profitCount++;
+    }
+  });
+  const avgProfit = profitCount > 0
+    ? (totalProfit / profitCount * 100).toFixed(1)
+    : '0.0';
+
+  // >24H SIN RESPUESTA (campo RECEPCION normalizado a YYYY-MM-DD)
+  const ahora = new Date();
+  const pendientes = data.filter(item => {
+    const fechaRaw = item.RECEPCION || item.RECEPCION_SOLICITUD || '';
+    if (!fechaRaw) return false;
+    const fecha = new Date(fechaRaw);
+    if (isNaN(fecha)) return false;
+    return (ahora - fecha) / (1000 * 60 * 60) > 24;
+  });
+
+  // RENDER KPIs
+  const kpiTotal      = document.getElementById('kpiTotal');
+  const kpiCloseRate  = document.getElementById('kpiCloseRate');
+  const kpiProfit     = document.getElementById('kpiProfit');
+  const kpiPending    = document.getElementById('kpiPending');
+
+  if (kpiTotal)     kpiTotal.textContent     = totalCotizaciones.toLocaleString('es-MX');
+  if (kpiCloseRate) kpiCloseRate.textContent  = `${tasaCierre}%`;
+  if (kpiProfit)    kpiProfit.textContent     = `${avgProfit}%`;
+  if (kpiPending)   kpiPending.textContent    = pendientes.length.toLocaleString('es-MX');
+}
+</script>
+<script src="assets/js/api.js"></script>
+<script>
+cargarDatos();
+</script>
+</body>
+</html>
